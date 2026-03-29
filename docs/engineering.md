@@ -122,15 +122,57 @@ CREATE POLICY "Users can insert own data"
 
 ## Testing Strategy
 
-### Unit Tests (Vitest — to be configured)
+### Test Layers
 
-- Test Zustand stores, utility functions, and service logic
-- Co-locate test files: `useHealthScore.test.ts` next to `useHealthScore.ts`
+| Layer | Tool | What | When |
+|-------|------|------|------|
+| Unit | Vitest | Stores, utils, services, type logic | `npm run test` — pre-commit, CI |
+| Component | Vitest + Testing Library | Component rendering, user interaction | `npm run test` — pre-commit, CI |
+| E2E | Playwright | Full user flows across pages | `npm run test:e2e` — pre-push, CI |
+| Regression | All of the above | Nothing broke from new changes | CI on every PR |
 
-### E2E Tests (Playwright — to be configured)
+### Commands
 
-- Critical user flows: signup → onboarding → dashboard → task completion
-- Run against preview deployments in CI
+```bash
+npm run test          # Run unit + component tests (Vitest)
+npm run test:watch    # Watch mode for development
+npm run test:coverage # Unit tests with coverage report
+npm run test:e2e      # Playwright E2E tests (starts dev server)
+npm run test:e2e:ui   # Playwright interactive UI mode
+npm run test:all      # Run everything (unit + E2E)
+```
+
+### Unit & Component Tests (Vitest)
+
+- **Config**: `vite.config.ts` (test section) + `src/test/setup.ts`
+- **Co-locate** test files next to source: `authStore.test.ts` alongside `authStore.ts`
+- **Naming**: `*.test.ts` or `*.test.tsx`
+- Test Zustand stores, utility functions, service logic, and component rendering
+- Use `@testing-library/react` for component tests — test what the user sees, not implementation
+- Use `@testing-library/user-event` for simulating user interactions
+
+### E2E Tests (Playwright)
+
+- **Config**: `playwright.config.ts`
+- **Test directory**: `e2e/`
+- **Browsers**: Desktop Chrome + Mobile Safari (iPhone 13 viewport)
+- Tests run against the Vite dev server (auto-started by Playwright)
+- Critical flows to cover: signup → onboarding → dashboard → task completion → billing
+- Screenshots captured on failure, traces on retry
+
+### Regression Tests
+
+All unit, component, and E2E tests serve as regression tests. They run automatically on every PR via GitHub Actions CI (`.github/workflows/ci.yml`). The CI pipeline:
+
+1. **lint-and-test** job: ESLint → TypeScript build → Vitest unit tests
+2. **e2e** job (runs after lint-and-test passes): Playwright E2E tests
+3. Playwright HTML report uploaded as artifact for debugging failures
+
+### Automation
+
+- **`Stop` hook**: When Claude finishes working, `npm run test` runs automatically. If tests fail, Claude continues fixing.
+- **`/test` skill**: Run tests on demand (`/test`, `/test e2e`, `/test all`)
+- **`/feature-done` skill**: Complete workflow — lint → test → build → commit → push → PR
 
 ### Manual Testing
 
