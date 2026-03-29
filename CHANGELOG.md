@@ -17,3 +17,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Project documentation: CLAUDE.md, README.md, architecture.md, engineering.md
 - Environment configuration: `.env.example`, `.gitignore`
 - Git branch strategy: main/staging/develop/feature
+- Vitest unit/component testing with React Testing Library
+- Playwright E2E testing (Desktop Safari + Mobile iPhone 13)
+- GitHub Actions CI pipeline (lint → build → unit tests → E2E)
+- Claude Code `/test` skill for on-demand test runs
+- Claude Code `/feature-done` skill for automated commit/PR workflow
+- Claude Code `Stop` hook to auto-run tests when work completes

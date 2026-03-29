@@ -24,11 +24,21 @@ RUCompliant is a compliance-as-a-service SaaS platform for UK microbusinesses (s
 ## Commands
 
 ```bash
-npm run dev        # Start Vite dev server (localhost:5173)
-npm run build      # TypeScript check + production build
-npm run lint       # ESLint
-npm run preview    # Preview production build locally
+npm run dev           # Start Vite dev server (localhost:5173)
+npm run build         # TypeScript check + production build
+npm run lint          # ESLint
+npm run preview       # Preview production build locally
+npm run test          # Unit + component tests (Vitest)
+npm run test:watch    # Watch mode for development
+npm run test:coverage # Tests with coverage report
+npm run test:e2e      # E2E tests (Playwright, starts dev server)
+npm run test:all      # Run everything (unit + E2E)
 ```
+
+## Custom Skills
+
+- `/test` — Run test suite on demand (`/test`, `/test e2e`, `/test all`)
+- `/feature-done` — Lint → test → build → commit → push → create PR to develop
 
 ## Architecture
 
