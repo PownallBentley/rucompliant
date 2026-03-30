@@ -28,6 +28,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Unused `@fontsource-variable/geist` dependency
 
 ### Added
+- Core database schema (Migration 001) with 13 tables, RLS policies, indexes, and updated_at triggers
+- 8 custom enums: business_type, health_status, task_type, action_type, message_role, plan_type, subscription_status, document_category
+- Seed data: 6 compliance domains, 3 concierge stages
+- Tables: business_profiles, compliance_domains, compliance_domain_scores, health_scores, concierge_stages, concierge_tasks, user_concierge_progress, task_calendar, documents, advisor_conversations, advisor_messages, subscriptions, notification_preferences
+
 - Initial project scaffolding with Vite + React 18 + TypeScript
 - Tailwind CSS v3 configuration with RUCompliant brand colours and Manrope font
 - Supabase client setup (`src/lib/supabase.ts`)
