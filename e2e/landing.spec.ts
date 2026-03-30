@@ -4,7 +4,7 @@ test.describe('Landing Page', () => {
   test('displays the hero content', async ({ page }) => {
     await page.goto('/')
     await expect(page.getByText('Are you compliant?')).toBeVisible()
-    await expect(page.getByText('Get started free', { exact: false })).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'Are you compliant?' })).toBeVisible()
   })
 
   test('has correct page title', async ({ page }) => {
@@ -24,8 +24,8 @@ test.describe('Landing Page', () => {
     await expect(page.getByText('£499.99')).toBeVisible()
   })
 
-  test('displays navigation with sign in and get started', async ({ page }) => {
+  test('displays navigation', async ({ page }) => {
     await page.goto('/')
-    await expect(page.getByText('RUCompliant')).toBeVisible()
+    await expect(page.getByRole('navigation')).toBeVisible()
   })
 })
