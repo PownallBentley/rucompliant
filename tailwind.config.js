@@ -207,6 +207,10 @@ export default {
   			'accordion-up': {
   				from: { height: 'var(--radix-accordion-content-height)' },
   				to: { height: '0' }
+  			},
+  			'float': {
+  				'0%, 100%': { transform: 'translateY(0)' },
+  				'50%': { transform: 'translateY(-8px)' }
   			}
   		},
   		animation: {
@@ -215,7 +219,7 @@ export default {
   			'slide-up': 'slide-up 0.3s ease-out forwards',
   			'accordion-down': 'accordion-down 0.2s ease-out',
   			'accordion-up': 'accordion-up 0.2s ease-out',
-  			'bounce-slow': 'bounce 4s ease-in-out infinite'
+  			'float': 'float 4s ease-in-out infinite'
   		},
   		transitionDuration: {
   			'250': '250ms',

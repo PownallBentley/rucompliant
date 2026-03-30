@@ -52,7 +52,16 @@ Only update files that are actually affected by the changes on this branch. Do n
 ### Step 6: Report
 - Show the PR URL and which GitHub issue it will close
 - Show the milestone progress (how many issues open/closed in this milestone)
-- Remind the user: "After merging, the feature branch will be auto-deleted by GitHub"
+- Remind the user: "After merging, run the post-merge cleanup"
+
+### Step 7: Post-merge cleanup (run after user confirms merge)
+When the user confirms the PR has been merged:
+- `git checkout develop && git pull origin develop`
+- Delete the local feature branch: `git branch -D feature/F-XXX-*`
+- Delete the remote feature branch: `git push origin --delete feature/F-XXX-*`
+- Verify the GitHub issue was auto-closed: `gh issue view N --json state`
+- If the issue is still open, close it manually: `gh issue close N --comment "Merged via PR #M (squash)"`
+- Report milestone progress
 
 ## Important
 - NEVER push to `main` or `staging` directly

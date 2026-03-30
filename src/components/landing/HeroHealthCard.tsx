@@ -3,7 +3,7 @@ import AppIcon from "@/components/ui/AppIcon";
 export default function HeroHealthCard() {
   return (
     <div className="hidden lg:flex w-full lg:w-1/2 justify-center lg:justify-end relative z-10">
-      <div className="w-[320px] bg-white rounded-xl border-[1.5px] border-emerald p-6 animate-bounce-slow">
+      <div className="w-[320px] bg-white rounded-xl border-[1.5px] border-emerald p-6 animate-float">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <span className="section-label text-muted-foreground">Compliance Health</span>
