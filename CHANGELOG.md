@@ -34,7 +34,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Full route structure: public routes via PublicLayout, protected routes via AppLayout
 - Floating "Ask Advisor" button placeholder in AppLayout
 - 5-question onboarding flow using QuestionFlow component (F-009)
-- Onboarding service: saves business profile, creates initial health score (Amber), creates domain scores
+- Onboarding service: saves business profile, creates initial health score (Amber), creates domain scores, seeds calendar
+- Calendar seed service: auto-populates statutory deadlines based on business profile (F-010)
+  - Sole trader: Self Assessment, payment on account
+  - Limited company: Confirmation Statement, Annual Accounts, Corporation Tax
+  - VAT registered: 4 quarterly VAT returns
+  - ICO registration check, employment obligations for businesses with employees
 - Animated "Building your compliance picture..." loading screen on completion
 - Auth pages matching UX design: signup form, magic link sent confirmation, auth callback redirect (F-008)
 - MagicLinkSent component with resend functionality

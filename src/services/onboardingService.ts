@@ -1,5 +1,6 @@
 import { supabase } from '@/lib/supabase'
 import type { BusinessType } from '@/types'
+import { seedCalendarForProfile } from './calendarSeedService'
 
 interface OnboardingAnswers {
   business_structure: string
@@ -106,7 +107,18 @@ export async function completeOnboarding(userId: string, answers: Record<string,
     trading_start_date: answers.trading_start_date || '',
   }
 
+  const headcount = mapHeadcount(onboardingAnswers.headcount)
+  const businessType = mapBusinessType(onboardingAnswers.business_structure)
+  const vatRegistered = mapVatRegistered(onboardingAnswers.vat_registered)
+
   await saveBusinessProfile(userId, onboardingAnswers)
   await createInitialHealthScore(userId)
-  await createInitialDomainScores(userId, mapHeadcount(onboardingAnswers.headcount))
+  await createInitialDomainScores(userId, headcount)
+  await seedCalendarForProfile(
+    userId,
+    businessType,
+    vatRegistered,
+    onboardingAnswers.trading_start_date || null,
+    headcount,
+  )
 }
