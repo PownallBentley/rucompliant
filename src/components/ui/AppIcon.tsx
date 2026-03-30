@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 // src/components/ui/AppIcon.tsx
 // Centralised Lucide icon wrapper + icon registry
 // FEAT-010: Single source of truth for UI icons

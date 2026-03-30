@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 // src/components/ui/Alert.tsx
 // shadcn-based Alert with DoorSlam API compatibility.
 

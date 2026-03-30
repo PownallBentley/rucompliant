@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 // src/components/ui/Button.tsx
 // shadcn-based Button with DoorSlam API compatibility.
 

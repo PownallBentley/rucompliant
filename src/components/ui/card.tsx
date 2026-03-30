@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 // src/components/ui/Card.tsx
 // shadcn-based Card with DoorSlam API compatibility.
 

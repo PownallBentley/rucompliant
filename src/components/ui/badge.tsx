@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 // src/components/ui/Badge.tsx
 // shadcn-based Badge with DoorSlam API compatibility.
 
