@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { supabase } from '@/lib/supabase'
+import { supabase, isSupabaseConfigured } from '@/lib/supabase'
 import { useAuthStore } from '@/stores/authStore'
 import { checkOnboardingCompleted } from '@/services/authService'
 
@@ -7,6 +7,12 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
   const { setUser, setSession, setLoading, setOnboardingCompleted } = useAuthStore()
 
   useEffect(() => {
+    // Skip auth initialisation if Supabase isn't configured (e.g. CI, preview)
+    if (!isSupabaseConfigured) {
+      setLoading(false)
+      return
+    }
+
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session)
@@ -16,6 +22,8 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
         checkOnboardingCompleted(session.user.id).then(setOnboardingCompleted)
       }
 
+      setLoading(false)
+    }).catch(() => {
       setLoading(false)
     })
 
