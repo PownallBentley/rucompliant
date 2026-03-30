@@ -33,6 +33,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - 9 placeholder pages: Landing, Auth, AuthCallback, Onboarding, Dashboard, Concierge, Calendar, Documents, Settings
 - Full route structure: public routes via PublicLayout, protected routes via AppLayout
 - Floating "Ask Advisor" button placeholder in AppLayout
+- Auth pages matching UX design: signup form, magic link sent confirmation, auth callback redirect (F-008)
+- MagicLinkSent component with resend functionality
+- AuthCallbackPage routes users to /onboarding or /app/dashboard based on onboarding status
 - Auth service with magic link sign-in, sign-out, session management, and onboarding check (F-007)
 - AuthProvider component wiring Supabase auth state to Zustand store
 - ProtectedRoute now redirects to /onboarding if onboarding not completed
