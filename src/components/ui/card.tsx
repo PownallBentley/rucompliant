@@ -1,103 +1,180 @@
-import * as React from "react"
+// src/components/ui/Card.tsx
+// shadcn-based Card with DoorSlam API compatibility.
 
-import { cn } from "@/lib/utils"
+import { type HTMLAttributes, type ReactNode, forwardRef } from "react";
+import { cva } from "class-variance-authority";
+import { cn } from "@/lib/utils";
 
-function Card({
-  className,
-  size = "default",
-  ...props
-}: React.ComponentProps<"div"> & { size?: "default" | "sm" }) {
-  return (
+// ============================================================================
+// CVA VARIANTS
+// ============================================================================
+
+const cardVariants = cva(
+  "rounded-xl transition-all duration-150",
+  {
+    variants: {
+      variant: {
+        default: "bg-card shadow-sm border border-border",
+        elevated: "bg-card shadow-lg border border-border",
+        outlined: "bg-card border-2 border-border",
+        flat: "bg-muted",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+);
+
+const interactiveStyles: Record<string, string> = {
+  default: "hover:shadow-md hover:border-border cursor-pointer",
+  elevated: "hover:shadow-xl cursor-pointer",
+  outlined: "hover:border-primary cursor-pointer",
+  flat: "hover:bg-muted/80 cursor-pointer",
+};
+
+const paddingStyles: Record<string, string> = {
+  none: "",
+  sm: "p-4",
+  md: "p-6",
+  lg: "p-8",
+};
+
+// ============================================================================
+// TYPES
+// ============================================================================
+
+export type CardVariant = "default" | "elevated" | "outlined" | "flat";
+export type CardPadding = "none" | "sm" | "md" | "lg";
+
+export interface CardProps extends HTMLAttributes<HTMLDivElement> {
+  variant?: CardVariant;
+  padding?: CardPadding;
+  title?: string;
+  subtitle?: string;
+  action?: ReactNode;
+  interactive?: boolean;
+  children: ReactNode;
+}
+
+// ============================================================================
+// SHADCN COMPOSITIONAL API
+// ============================================================================
+
+const CardRoot = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
     <div
-      data-slot="card"
-      data-size={size}
-      className={cn(
-        "group/card flex flex-col gap-4 overflow-hidden rounded-xl bg-card py-4 text-sm text-card-foreground ring-1 ring-foreground/10 has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:gap-3 data-[size=sm]:py-3 data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
-        className
-      )}
+      ref={ref}
+      className={cn("rounded-xl border border-border bg-card text-card-foreground shadow-sm", className)}
       {...props}
     />
   )
-}
+);
+CardRoot.displayName = "CardRoot";
 
-function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-header"
-      className={cn(
-        "group/card-header @container/card-header grid auto-rows-min items-start gap-1 rounded-t-xl px-4 group-data-[size=sm]/card:px-3 has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto] [.border-b]:pb-4 group-data-[size=sm]/card:[.border-b]:pb-3",
-        className
-      )}
-      {...props}
-    />
+const CardHeader = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
+    <div ref={ref} className={cn("flex flex-col space-y-1.5 p-6", className)} {...props} />
   )
-}
+);
+CardHeader.displayName = "CardHeader";
 
-function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-title"
-      className={cn(
-        "font-heading text-base leading-snug font-medium group-data-[size=sm]/card:text-sm",
-        className
-      )}
-      {...props}
-    />
+const CardTitle = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
+    <div ref={ref} className={cn("text-2xl font-semibold leading-none tracking-tight", className)} {...props} />
   )
-}
+);
+CardTitle.displayName = "CardTitle";
 
-function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-description"
-      className={cn("text-sm text-muted-foreground", className)}
-      {...props}
-    />
+const CardDescription = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
+    <div ref={ref} className={cn("text-sm text-muted-foreground", className)} {...props} />
   )
-}
+);
+CardDescription.displayName = "CardDescription";
 
-function CardAction({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-action"
-      className={cn(
-        "col-start-2 row-span-2 row-start-1 self-start justify-self-end",
-        className
-      )}
-      {...props}
-    />
+const CardContent = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
+    <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
   )
-}
+);
+CardContent.displayName = "CardContent";
 
-function CardContent({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-content"
-      className={cn("px-4 group-data-[size=sm]/card:px-3", className)}
-      {...props}
-    />
+const CardFooter = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
+    <div ref={ref} className={cn("flex items-center p-6 pt-0", className)} {...props} />
   )
-}
+);
+CardFooter.displayName = "CardFooter";
 
-function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-footer"
-      className={cn(
-        "flex items-center rounded-b-xl border-t bg-muted/50 p-4 group-data-[size=sm]/card:p-3",
-        className
-      )}
-      {...props}
-    />
-  )
-}
+// ============================================================================
+// DOORSLAM COMPAT COMPONENT
+// ============================================================================
 
-export {
-  Card,
-  CardHeader,
-  CardFooter,
-  CardTitle,
-  CardAction,
-  CardDescription,
-  CardContent,
-}
+const Card = forwardRef<HTMLDivElement, CardProps>(
+  (
+    {
+      variant = "default",
+      padding = "md",
+      title,
+      subtitle,
+      action,
+      interactive = false,
+      className,
+      children,
+      onClick,
+      ...props
+    },
+    ref
+  ) => {
+    const isInteractive = interactive || !!onClick;
+    const hasHeader = title || action;
+
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          cardVariants({ variant }),
+          isInteractive && interactiveStyles[variant],
+          !title && paddingStyles[padding],
+          className
+        )}
+        onClick={onClick}
+        role={isInteractive ? "button" : undefined}
+        tabIndex={isInteractive ? 0 : undefined}
+        {...props}
+      >
+        {hasHeader && (
+          <div
+            className={cn(
+              "flex items-center justify-between",
+              paddingStyles[padding],
+              children && "pb-0"
+            )}
+          >
+            <div>
+              {title && (
+                <h3 className="text-lg font-semibold text-foreground">{title}</h3>
+              )}
+              {subtitle && (
+                <p className="text-sm text-muted-foreground mt-0.5">{subtitle}</p>
+              )}
+            </div>
+            {action && <div>{action}</div>}
+          </div>
+        )}
+
+        {children && (
+          <div className={hasHeader ? paddingStyles[padding] : ""}>
+            {children}
+          </div>
+        )}
+      </div>
+    );
+  }
+);
+
+Card.displayName = "Card";
+
+export default Card;
+export { Card, CardRoot, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, cardVariants };

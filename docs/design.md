@@ -1,6 +1,6 @@
 # Design System
 
-> **Status**: Initial scaffold — master design tokens and brand guidelines to be provided by project owner.
+> **Status**: Integrated — brand tokens, component library, and dark mode are in place.
 
 This document defines the visual language and component conventions for RUCompliant. All UI work must follow these guidelines.
 
@@ -15,28 +15,55 @@ This document defines the visual language and component conventions for RUCompli
 ## Component Library
 
 - **shadcn/ui** (Radix UI primitives + Tailwind CSS)
-- **Lucide React** for icons
-- **Inter** for body text
-- **Geist** available as secondary/heading font
+- **Lucide React** for icons (via `AppIcon` wrapper)
+- **DM Sans** for all text (body and headings)
 
-### Installed Components
+### shadcn Primitives
+
+| Component | Import | Use case |
+|-----------|--------|----------|
+| `Dialog` | `@/components/ui/dialog` | Confirmations, modals |
+| `Input` | `@/components/ui/input` | Form text fields |
+| `Textarea` | `@/components/ui/textarea` | Multi-line form fields |
+| `Label` | `@/components/ui/label` | Form labels |
+| `Progress` | `@/components/ui/progress` | Progress bars (Radix) |
+| `Separator` | `@/components/ui/separator` | Section dividers |
+| `Skeleton` | `@/components/ui/skeleton` | Loading placeholders |
+| `Tooltip` | `@/components/ui/tooltip` | Jargon definitions (PRD requirement) |
+| `DropdownMenu` | `@/components/ui/dropdown-menu` | Context menus |
+| `Tabs` | `@/components/ui/tabs` | Content sections, settings |
+| `Select` | `@/components/ui/select` | Dropdown selects |
+| `Sheet` | `@/components/ui/sheet` | AI Advisor flyout panel |
+| `Switch` | `@/components/ui/switch` | Boolean toggles |
+| `Accordion` | `@/components/ui/accordion` | Collapsible sections |
+| `Table` | `@/components/ui/table` | Data tables |
+
+### Custom Components
+
+All custom components use shadcn tokens and can be imported from `@/components/ui`:
 
 | Component | Use case |
 |-----------|----------|
-| `Button` | Primary actions, CTAs |
-| `Card` | Content containers, domain breakdowns |
-| `Input` | Form fields |
-| `Label` | Form labels |
-| `Badge` | Status indicators, tags |
-| `Alert` | Notifications, warnings |
-| `Dialog` | Confirmations, modals |
-| `DropdownMenu` | Navigation menus, profile menu |
-| `Separator` | Section dividers |
-| `Tooltip` | Jargon definitions (PRD requirement) |
-| `Sheet` | AI Advisor flyout panel |
-| `Tabs` | Content sections, settings |
+| `Button` | Primary actions, CTAs — extends shadcn with variants |
+| `Card` | Content containers, domain breakdowns — extends shadcn with variants |
+| `Alert` | Notifications, warnings — extends shadcn with variants |
+| `Badge` | Status indicators, tags — extends shadcn with variants |
+| `Modal` | Dialog wrapper with standard layout |
+| `FormField` | Input + Label + error state composition |
+| `Toggle` | Styled toggle switch |
+| `AppIcon` | Lucide icon wrapper with named lookup |
+| `LoadingSpinner` | Spinner with size/variant options |
+| `EmptyState` | Empty content placeholder |
+| `ProgressBar` | Custom progress bar with colour/size options |
+| `StatCard` | Metric display card |
+| `IconCircle` | Circular icon container |
+| `CircularProgress` | Circular progress indicator |
+| `AvatarCircle` | User avatar with initials fallback |
+| `ThemeToggle` | Dark/light mode switcher |
+| `DropdownMenu` (custom) | Higher-level dropdown with item config |
+| `Toast` / `useToast` | Toast notification system |
 
-### Adding New Components
+### Adding New shadcn Components
 
 ```bash
 npx shadcn@latest add <component-name>
@@ -44,48 +71,62 @@ npx shadcn@latest add <component-name>
 
 ## Colour System
 
-### Brand Colours (placeholder — to be updated with master tokens)
+### Brand Colours
+
+Defined as CSS custom properties in `src/styles/themes.css` using HSL format for Tailwind opacity modifier support (e.g. `bg-primary/10`).
 
 ```
-brand-500: #1e40af  (Primary blue)
-brand-600: #1e3a8a  (Dark blue)
-brand-900: #15244d  (Darkest)
+Primary (light): hsl(217, 91%, 60%)  → #3B82F6 (RUCompliant Blue)
+Primary (dark):  hsl(217, 91%, 70%)  → #60A5FA (Blue-400)
 ```
+
+Full palette available in `src/constants/colors.ts`.
 
 ### Health Score RAG Status
 
 These colours are core to the product and are used throughout:
 
 ```
-status-green:  #22c55e  — All clear, no outstanding actions
-status-amber:  #f59e0b  — Attention needed, upcoming or slightly overdue
-status-red:    #ef4444  — Urgent action required
+status-green:  #22C55E  — All clear, no outstanding actions
+status-amber:  #F59E0B  — Attention needed, upcoming or slightly overdue
+status-red:    #EF4444  — Urgent action required
 ```
 
 **Rule**: Colour alone must NEVER convey information. Always pair with text + icon (WCAG 2.1 AA).
 
-### shadcn/ui Semantic Colours (CSS variables)
+### Semantic Colours (CSS variables)
 
-Defined in `src/index.css` using oklch colour space:
+Defined in `src/styles/themes.css` using HSL colour space:
 - `--background` / `--foreground` — Page background and text
 - `--primary` / `--primary-foreground` — Primary actions
-- `--muted` / `--muted-foreground` — Secondary content
+- `--secondary` / `--secondary-foreground` — Secondary content
+- `--muted` / `--muted-foreground` — Subdued content
 - `--destructive` — Danger/delete actions
+- `--success` / `--warning` / `--info` — Semantic status
 - `--border` / `--input` / `--ring` — Form elements
 - `--card` / `--popover` — Elevated surfaces
 
 ## Typography
 
-### Fonts
-- **Inter** — Primary font for all body text and UI
-- **Geist** — Available for headings (optional, configured in shadcn)
+### Font
+- **DM Sans** — Primary font for all text (body and headings)
+- Loaded via Google Fonts in `src/styles/globals.css`
 
-### Scale (placeholder — to be refined with master tokens)
-- Body: 16px (1rem)
-- Small: 14px (0.875rem)
-- Heading 1: 36px (2.25rem)
-- Heading 2: 24px (1.5rem)
-- Heading 3: 20px (1.25rem)
+### Scale
+
+Defined as CSS custom properties in `src/styles/themes.css`:
+
+| Token | Size | Use |
+|-------|------|-----|
+| `text-2xs` | 0.625rem (10px) | Fine print |
+| `text-xs` | 0.75rem (12px) | Captions |
+| `text-sm` | 0.875rem (14px) | Secondary text |
+| `text-base` | 1rem (16px) | Body text |
+| `text-lg` | 1.125rem (18px) | Lead text |
+| `text-xl` | 1.25rem (20px) | Heading 3 |
+| `text-2xl` | 1.5rem (24px) | Heading 2 |
+| `text-3xl` | 1.875rem (30px) | Heading 1 |
+| `text-4xl` | 2.25rem (36px) | Display |
 
 ## Spacing
 
@@ -97,23 +138,42 @@ Using Tailwind's default spacing scale (4px base unit):
 
 ## Border Radius
 
-Defined as CSS variable `--radius: 0.625rem`:
+Defined as CSS variable `--radius: 0.625rem` (10px):
 - `rounded-lg` — Cards, large containers
 - `rounded-md` — Buttons, inputs
 - `rounded-sm` — Badges, small elements
+- `rounded-xl` / `rounded-2xl` — Feature cards
+- `rounded-pill` — Pills, full-round elements
 
 ## Responsive Breakpoints
 
-Mobile-first using Tailwind defaults:
-- Default: Mobile (< 640px) — **Primary design target**
+Mobile-first using custom screen config:
+- Default: Mobile (< 375px)
+- `xs:` — 375px+ (iPhone-sized — **primary design target**)
 - `sm:` — 640px+ (large phones, small tablets)
 - `md:` — 768px+ (tablets)
 - `lg:` — 1024px+ (desktop)
+- `xl:` — 1280px+ (large desktop)
 
 ## Dark Mode
 
-Supported via `class` strategy (Tailwind `darkMode: 'class'`). Dark mode CSS variables defined in `src/index.css` under `.dark` class. Not a priority for MVP but the infrastructure is in place.
+Supported via `class` strategy (Tailwind `darkMode: 'class'`). Dark mode tokens defined in `src/styles/themes.css` under `.dark` class. Toggle available via `ThemeToggle` component and `ThemeProvider` context (`src/contexts/ThemeContext.tsx`).
 
----
+## File Structure
 
-> **TODO**: Replace placeholder brand colours, typography scale, and spacing with master design tokens when provided.
+```
+src/styles/
+├── globals.css          # Entry point — imports themes.css, Tailwind directives
+└── themes.css           # All CSS custom properties (light + dark tokens)
+
+src/constants/
+└── colors.ts            # Hex colour constants for JS usage
+
+src/contexts/
+└── ThemeContext.tsx      # Dark/light mode provider + useTheme hook
+
+src/components/ui/
+├── index.ts             # Barrel export for all components
+├── [component].tsx      # shadcn primitives (lowercase)
+└── [Component].tsx      # Custom composites (PascalCase)
+```

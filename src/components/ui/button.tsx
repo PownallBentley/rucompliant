@@ -1,60 +1,158 @@
-"use client"
+// src/components/ui/Button.tsx
+// shadcn-based Button with DoorSlam API compatibility.
 
-import { Button as ButtonPrimitive } from "@base-ui/react/button"
-import { cva, type VariantProps } from "class-variance-authority"
+import { type ButtonHTMLAttributes, type ReactNode, forwardRef } from "react";
+import { Slot } from "@radix-ui/react-slot";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
+import AppIcon from "./AppIcon";
+import type { IconKey } from "./AppIcon";
 
-import { cn } from "@/lib/utils"
+// ============================================================================
+// CVA VARIANTS
+// ============================================================================
 
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "inline-flex items-center justify-center whitespace-nowrap font-semibold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground [a]:hover:bg-primary/80",
-        outline:
-          "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
+        primary: "bg-primary text-primary-foreground hover:bg-primary/90",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
-        ghost:
-          "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50",
+          "bg-background text-foreground border border-border hover:bg-secondary",
+        ghost: "hover:bg-accent hover:text-accent-foreground",
+        danger:
+          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        // shadcn standard aliases
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
         destructive:
-          "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
+          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        outline:
+          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
-        default:
-          "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
-        xs: "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
-        sm: "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
-        lg: "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3",
-        icon: "size-8",
-        "icon-xs":
-          "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&_svg:not([class*='size-'])]:size-3",
-        "icon-sm":
-          "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg",
-        "icon-lg": "size-9",
+        sm: "py-2 px-3 text-sm gap-1.5 rounded-lg",
+        md: "py-2.5 px-4 text-sm gap-2 rounded-xl",
+        lg: "py-3 px-6 text-base gap-2 rounded-xl",
+        // shadcn standard aliases
+        default: "py-2.5 px-4 text-sm gap-2 rounded-xl",
+        icon: "h-10 w-10 rounded-xl",
       },
     },
     defaultVariants: {
-      variant: "default",
-      size: "default",
+      variant: "primary",
+      size: "md",
     },
   }
-)
+);
 
-function Button({
-  className,
-  variant = "default",
-  size = "default",
-  ...props
-}: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
-  return (
-    <ButtonPrimitive
-      data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
-      {...props}
-    />
-  )
+// ============================================================================
+// TYPES
+// ============================================================================
+
+export type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";
+export type ButtonSize = "sm" | "md" | "lg";
+
+export interface ButtonProps
+  extends ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  /** Render as child component (Radix Slot pattern) */
+  asChild?: boolean;
+  /** Shows loading spinner and disables button */
+  loading?: boolean;
+  /** Icon to show on the left */
+  leftIcon?: IconKey;
+  /** Icon to show on the right */
+  rightIcon?: IconKey;
+  /** Makes button full width */
+  fullWidth?: boolean;
+  /** Button content */
+  children?: ReactNode;
 }
 
-export { Button, buttonVariants }
+// ============================================================================
+// ICON SIZES
+// ============================================================================
+
+const iconSizeMap: Record<string, string> = {
+  sm: "w-3.5 h-3.5",
+  md: "w-4 h-4",
+  lg: "w-5 h-5",
+  default: "w-4 h-4",
+  icon: "w-4 h-4",
+};
+
+// ============================================================================
+// COMPONENT
+// ============================================================================
+
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      className,
+      variant = "primary",
+      size = "md",
+      asChild = false,
+      loading = false,
+      leftIcon,
+      rightIcon,
+      fullWidth = false,
+      disabled,
+      children,
+      ...props
+    },
+    ref
+  ) => {
+    const isDisabled = disabled || loading;
+    const Comp = asChild ? Slot : "button";
+    const iconSize = iconSizeMap[size ?? "md"];
+
+    return (
+      <Comp
+        className={cn(
+          buttonVariants({ variant, size, className }),
+          fullWidth && "w-full"
+        )}
+        ref={ref}
+        disabled={isDisabled}
+        {...props}
+      >
+        {/* Loading spinner replaces left icon */}
+        {loading ? (
+          <span className={cn(iconSize, "animate-spin")}>
+            <svg className="w-full h-full" fill="none" viewBox="0 0 24 24">
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              />
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              />
+            </svg>
+          </span>
+        ) : leftIcon ? (
+          <AppIcon name={leftIcon} className={iconSize} />
+        ) : null}
+
+        {children}
+
+        {/* Right icon (not shown when loading) */}
+        {!loading && rightIcon && (
+          <AppIcon name={rightIcon} className={iconSize} />
+        )}
+      </Comp>
+    );
+  }
+);
+
+Button.displayName = "Button";
+
+export default Button;
+export { Button, buttonVariants };

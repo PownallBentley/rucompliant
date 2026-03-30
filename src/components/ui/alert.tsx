@@ -1,76 +1,159 @@
-import * as React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
+// src/components/ui/Alert.tsx
+// shadcn-based Alert with DoorSlam API compatibility.
 
-import { cn } from "@/lib/utils"
+import { type HTMLAttributes, type ReactNode, forwardRef } from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
+import AppIcon from "./AppIcon";
+import type { IconKey } from "./AppIcon";
+
+// ============================================================================
+// CVA VARIANTS
+// ============================================================================
 
 const alertVariants = cva(
-  "group/alert relative grid w-full gap-0.5 rounded-lg border px-2.5 py-2 text-left text-sm has-data-[slot=alert-action]:relative has-data-[slot=alert-action]:pr-18 has-[>svg]:grid-cols-[auto_1fr] has-[>svg]:gap-x-2 *:[svg]:row-span-2 *:[svg]:translate-y-0.5 *:[svg]:text-current *:[svg:not([class*='size-'])]:size-4",
+  "relative w-full rounded-xl border p-4",
   {
     variants: {
       variant: {
-        default: "bg-card text-card-foreground",
-        destructive:
-          "bg-card text-destructive *:data-[slot=alert-description]:text-destructive/90 *:[svg]:text-current",
+        error: "bg-destructive/10 border-destructive/30 text-destructive",
+        success: "bg-success/10 border-success/30 text-success",
+        warning: "bg-warning/10 border-warning/30 text-warning",
+        info: "bg-info/10 border-info/30 text-info",
+        // shadcn standard aliases
+        default: "bg-background text-foreground border-border",
+        destructive: "bg-destructive/10 border-destructive/30 text-destructive",
       },
     },
     defaultVariants: {
-      variant: "default",
+      variant: "info",
     },
   }
-)
+);
 
-function Alert({
-  className,
-  variant,
-  ...props
-}: React.ComponentProps<"div"> & VariantProps<typeof alertVariants>) {
-  return (
-    <div
-      data-slot="alert"
-      role="alert"
-      className={cn(alertVariants({ variant }), className)}
-      {...props}
-    />
-  )
+// ============================================================================
+// TYPES
+// ============================================================================
+
+export type AlertVariant = "error" | "success" | "warning" | "info";
+
+export interface AlertProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
+  variant?: AlertVariant;
+  title?: string;
+  icon?: IconKey;
+  hideIcon?: boolean;
+  onClose?: () => void;
+  action?: ReactNode;
+  children: ReactNode;
 }
 
-function AlertTitle({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="alert-title"
-      className={cn(
-        "font-heading font-medium group-has-[>svg]/alert:col-start-2 [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground",
-        className
-      )}
-      {...props}
-    />
-  )
-}
+// ============================================================================
+// DEFAULTS
+// ============================================================================
 
-function AlertDescription({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="alert-description"
-      className={cn(
-        "text-sm text-balance text-muted-foreground md:text-pretty [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground [&_p:not(:last-child)]:mb-4",
-        className
-      )}
-      {...props}
-    />
-  )
-}
+const variantIcons: Record<AlertVariant, IconKey> = {
+  error: "triangle-alert",
+  success: "check-circle",
+  warning: "triangle-alert",
+  info: "info",
+};
 
-function AlertAction({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="alert-action"
-      className={cn("absolute top-2 right-2", className)}
-      {...props}
-    />
-  )
-}
+const variantRoles: Record<AlertVariant, "alert" | "status"> = {
+  error: "alert",
+  success: "status",
+  warning: "alert",
+  info: "status",
+};
 
-export { Alert, AlertTitle, AlertDescription, AlertAction }
+// ============================================================================
+// SHADCN COMPOSITIONAL API
+// ============================================================================
+
+const AlertRoot = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement> & VariantProps<typeof alertVariants>>(
+  ({ className, variant, ...props }, ref) => (
+    <div ref={ref} role="alert" className={cn(alertVariants({ variant }), className)} {...props} />
+  )
+);
+AlertRoot.displayName = "AlertRoot";
+
+const AlertTitle = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLHeadingElement>>(
+  ({ className, ...props }, ref) => (
+    <h5 ref={ref} className={cn("mb-1 font-semibold text-sm leading-none tracking-tight", className)} {...props} />
+  )
+);
+AlertTitle.displayName = "AlertTitle";
+
+const AlertDescription = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLParagraphElement>>(
+  ({ className, ...props }, ref) => (
+    <div ref={ref} className={cn("text-sm [&_p]:leading-relaxed", className)} {...props} />
+  )
+);
+AlertDescription.displayName = "AlertDescription";
+
+// ============================================================================
+// DOORSLAM COMPAT COMPONENT
+// ============================================================================
+
+const Alert = forwardRef<HTMLDivElement, AlertProps>(
+  (
+    {
+      variant = "info",
+      title,
+      icon,
+      hideIcon = false,
+      onClose,
+      action,
+      className,
+      children,
+      ...props
+    },
+    ref
+  ) => {
+    const iconName = icon ?? variantIcons[variant];
+
+    return (
+      <div
+        ref={ref}
+        role={variantRoles[variant]}
+        className={cn(alertVariants({ variant }), className)}
+        {...props}
+      >
+        <div className="flex gap-3">
+          {!hideIcon && (
+            <div className="flex-shrink-0 pt-0.5">
+              <AppIcon name={iconName} className="w-5 h-5" />
+            </div>
+          )}
+
+          <div className="flex-1 min-w-0">
+            {title && (
+              <h4 className="font-semibold text-sm">{title}</h4>
+            )}
+            <div className={cn("text-sm", title && "mt-1")}>
+              {children}
+            </div>
+          </div>
+
+          <div className="flex-shrink-0 flex items-start gap-2">
+            {action}
+            {onClose && (
+              <button
+                type="button"
+                onClick={onClose}
+                className="p-1 rounded-lg hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+                aria-label="Dismiss"
+              >
+                <AppIcon name="x" className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+);
+
+Alert.displayName = "Alert";
+
+export default Alert;
+export { Alert, AlertRoot, AlertTitle, AlertDescription, alertVariants };
