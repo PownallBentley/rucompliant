@@ -66,7 +66,10 @@ Full details in `docs/design.md`.
 ```
 src/
 ├── components/     # React components
-│   └── ui/         # Design system (shadcn primitives + custom composites)
+│   ├── ui/         # Design system (shadcn primitives + custom composites)
+│   ├── layout/     # AppLayout, Sidebar, PublicLayout, MobileNav
+│   ├── auth/       # ProtectedRoute
+│   └── shared/     # Reusable feature components (RagStatus, TaskList, QuestionFlow)
 ├── pages/          # Route-level page components
 ├── hooks/          # Custom React hooks (useCamelCase)
 ├── services/       # API calls and business logic

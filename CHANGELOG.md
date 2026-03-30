@@ -28,6 +28,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Unused `@fontsource-variable/geist` dependency
 
 ### Added
+- App shell with Sidebar (black), AppLayout, PublicLayout, MobileNav (F-003)
+- ProtectedRoute guard redirecting unauthenticated users to /auth
+- 9 placeholder pages: Landing, Auth, AuthCallback, Onboarding, Dashboard, Concierge, Calendar, Documents, Settings
+- Full route structure: public routes via PublicLayout, protected routes via AppLayout
+- Floating "Ask Advisor" button placeholder in AppLayout
 - Core database schema (Migration 001) with 13 tables, RLS policies, indexes, and updated_at triggers
 - 8 custom enums: business_type, health_status, task_type, action_type, message_role, plan_type, subscription_status, document_category
 - Seed data: 6 compliance domains, 3 concierge stages
