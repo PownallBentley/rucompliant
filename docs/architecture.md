@@ -114,19 +114,22 @@ Supabase replaces what would traditionally be a separate API server, auth servic
 
 ```
 users                    # Supabase auth.users (managed by Supabase Auth)
-business_profiles        # Business type, headcount, VAT status, sector
-compliance_domains       # The 6 compliance domains (Tax, Legal, Employment, etc.)
-compliance_tasks         # Individual compliance obligations per business
-task_calendar            # Auto-generated statutory deadlines
-health_scores            # Current and historical RAG scores
-concierge_stages         # Journey progress (Stages 1-3)
-concierge_tasks          # Individual tasks within each stage
+business_profiles        # Business type, headcount, VAT status, sector, onboarding state
+compliance_domains       # The 6 compliance domains (seed: Formation, Tax, Data, H&S, Employment, Insurance)
+compliance_domain_scores # Per-user RAG status for each domain
+health_scores            # Overall RAG score (worst domain wins)
+concierge_stages         # Journey stages (seed: Register & Exist, Operate Safely, Build Good Habits)
+concierge_tasks          # Individual tasks within each stage (with applies_to filtering)
+user_concierge_progress  # Per-user task completion tracking
+task_calendar            # Auto-generated statutory deadlines + manual tasks
 documents                # Document Vault metadata (files in Supabase Storage)
-advisor_conversations    # AI Advisor chat history
+advisor_conversations    # AI Advisor conversation threads
+advisor_messages         # Individual messages with confidence indicators
 subscriptions            # Stripe subscription state (synced via webhooks)
+notification_preferences # Per-user email/push/digest toggles
 ```
 
-> Detailed schema will be defined in Supabase migrations as features are built.
+Schema defined in `supabase/migrations/20260330_001_core_schema.sql`. All tables have RLS policies enforcing `auth.uid() = user_id`. Seed tables (compliance_domains, concierge_stages, concierge_tasks) allow public SELECT.
 
 ## Deployment Pipeline
 
