@@ -68,7 +68,7 @@ src/
 ├── components/     # React components
 │   ├── ui/         # Design system (shadcn primitives + custom composites)
 │   ├── layout/     # AppLayout, Sidebar, PublicLayout, MobileNav
-│   ├── auth/       # ProtectedRoute
+│   ├── auth/       # ProtectedRoute, AuthProvider, MagicLinkSent
 │   └── shared/     # Reusable feature components (RagStatus, TaskList, QuestionFlow)
 ├── pages/          # Route-level page components
 ├── hooks/          # Custom React hooks (useCamelCase)
