@@ -70,6 +70,8 @@ Reusable components in `src/components/shared/` used across multiple modules:
 | Component | Use case |
 |-----------|----------|
 | `RagStatus` | RAG status indicator (dot/badge/card/large) — Health Score, domains, tasks, Advisor confidence |
+| `TaskList` / `TaskItem` | Task list with 3 variants (checklist/timeline/compact) — Dashboard, Concierge, Calendar |
+| `QuestionFlow` / `QuestionStep` | Multi-step question flow with 5 step types — Onboarding, contract generator |
 
 ### Adding New shadcn Components
 

@@ -36,6 +36,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Full landing page with 7 sections matching UX design (F-023): Hero, Trust Strip, Problem, How It Works, Pricing, Final CTA, Footer
 - 8 reusable landing components: LandingNav, HeroHealthCard, EmailSignup, TrustBadges, StatStrip, SectionHeader, FeatureCard, NumberedStep, PricingCard, LandingFooter
 - Landing page renders outside PublicLayout (full-width with own nav)
+- Reusable `TaskList` + `TaskItem` components with 3 variants: checklist, timeline, compact (F-005)
 - Reusable `RagStatus` component with 4 variants: dot, badge, card, large (F-004)
 - WCAG 2.1 AA compliant — every variant pairs colour with text label + icon
 - Core database schema (Migration 001) with 13 tables, RLS policies, indexes, and updated_at triggers
