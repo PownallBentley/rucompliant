@@ -7,6 +7,7 @@ describe('authStore', () => {
       user: null,
       session: null,
       loading: true,
+      onboardingCompleted: null,
     })
   })
 
@@ -15,6 +16,7 @@ describe('authStore', () => {
     expect(state.user).toBeNull()
     expect(state.session).toBeNull()
     expect(state.loading).toBe(true)
+    expect(state.onboardingCompleted).toBeNull()
   })
 
   it('sets loading state', () => {
@@ -33,5 +35,25 @@ describe('authStore', () => {
     useAuthStore.getState().setUser(mockUser)
     useAuthStore.getState().setUser(null)
     expect(useAuthStore.getState().user).toBeNull()
+  })
+
+  it('isAuthenticated returns true when user is set', () => {
+    const mockUser = { id: '123', email: 'sarah@example.com' } as never
+    useAuthStore.getState().setUser(mockUser)
+    expect(useAuthStore.getState().isAuthenticated()).toBe(true)
+  })
+
+  it('isAuthenticated returns false when no user', () => {
+    expect(useAuthStore.getState().isAuthenticated()).toBe(false)
+  })
+
+  it('sets onboarding completed', () => {
+    useAuthStore.getState().setOnboardingCompleted(true)
+    expect(useAuthStore.getState().onboardingCompleted).toBe(true)
+  })
+
+  it('sets onboarding to false', () => {
+    useAuthStore.getState().setOnboardingCompleted(false)
+    expect(useAuthStore.getState().onboardingCompleted).toBe(false)
   })
 })
