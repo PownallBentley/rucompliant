@@ -63,6 +63,14 @@ All custom components use shadcn tokens and can be imported from `@/components/u
 | `DropdownMenu` (custom) | Higher-level dropdown with item config |
 | `Toast` / `useToast` | Toast notification system |
 
+### Shared Feature Components
+
+Reusable components in `src/components/shared/` used across multiple modules:
+
+| Component | Use case |
+|-----------|----------|
+| `RagStatus` | RAG status indicator (dot/badge/card/large) — Health Score, domains, tasks, Advisor confidence |
+
 ### Adding New shadcn Components
 
 ```bash
