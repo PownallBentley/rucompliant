@@ -23,3 +23,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Claude Code `/test` skill for on-demand test runs
 - Claude Code `/feature-done` skill for automated commit/PR workflow
 - Claude Code `Stop` hook to auto-run tests when work completes
+- shadcn/ui component library (Radix UI + Tailwind) with 12 core components
+- Design system documentation (`docs/design.md`) — placeholder for master tokens
+- Separate `vitest.config.ts` for clean TypeScript compilation

@@ -12,7 +12,8 @@ RUCompliant is a compliance-as-a-service SaaS platform for UK microbusinesses (s
 
 - **Build**: Vite
 - **Frontend**: React 18 + TypeScript (strict mode)
-- **Styling**: Tailwind CSS v3
+- **Styling**: Tailwind CSS v3 + shadcn/ui (Radix UI primitives)
+- **UI Components**: shadcn/ui — add with `npx shadcn@latest add <component>`
 - **State**: Zustand (stores in `src/stores/`)
 - **Routing**: React Router v6
 - **Backend**: Supabase (PostgreSQL + Auth + Storage + Edge Functions + Realtime + RLS)
