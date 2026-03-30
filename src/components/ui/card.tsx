@@ -15,8 +15,8 @@ const cardVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-card shadow-sm border border-border",
-        elevated: "bg-card shadow-lg border border-border",
+        default: "bg-card border border-border",
+        elevated: "bg-card border border-border",
         outlined: "bg-card border-2 border-border",
         flat: "bg-muted",
       },
@@ -28,8 +28,8 @@ const cardVariants = cva(
 );
 
 const interactiveStyles: Record<string, string> = {
-  default: "hover:shadow-md hover:border-border cursor-pointer",
-  elevated: "hover:shadow-xl cursor-pointer",
+  default: "hover:border-primary cursor-pointer",
+  elevated: "hover:border-primary cursor-pointer",
   outlined: "hover:border-primary cursor-pointer",
   flat: "hover:bg-muted/80 cursor-pointer",
 };
@@ -66,7 +66,7 @@ const CardRoot = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn("rounded-xl border border-border bg-card text-card-foreground shadow-sm", className)}
+      className={cn("rounded-xl border border-border bg-card text-card-foreground", className)}
       {...props}
     />
   )

@@ -1,6 +1,6 @@
 # Design System
 
-> **Status**: Integrated — brand tokens, component library, and dark mode are in place.
+> **Status**: Integrated — RUCompliant brand palette, component library, and dark mode are in place.
 
 This document defines the visual language and component conventions for RUCompliant. All UI work must follow these guidelines.
 
@@ -16,7 +16,7 @@ This document defines the visual language and component conventions for RUCompli
 
 - **shadcn/ui** (Radix UI primitives + Tailwind CSS)
 - **Lucide React** for icons (via `AppIcon` wrapper)
-- **DM Sans** for all text (body and headings)
+- **Manrope** for all text (body and headings) — the only permitted font
 
 ### shadcn Primitives
 
@@ -71,46 +71,58 @@ npx shadcn@latest add <component-name>
 
 ## Colour System
 
-### Brand Colours
+### Brand Palette
 
 Defined as CSS custom properties in `src/styles/themes.css` using HSL format for Tailwind opacity modifier support (e.g. `bg-primary/10`).
 
-```
-Primary (light): hsl(217, 91%, 60%)  → #3B82F6 (RUCompliant Blue)
-Primary (dark):  hsl(217, 91%, 70%)  → #60A5FA (Blue-400)
-```
+| Token | Light | Dark | Hex | Use |
+|-------|-------|------|-----|-----|
+| `--primary` | Magenta | Magenta (lighter) | `#E43F6F` | ALL CTAs, active nav, primary interactive |
+| `--secondary` | Dusk Blue | Dusk Blue (lighter) | `#345995` | Info states, links, tooltips |
+| `--page` | Porcelain | Dark bg | `#FFFFFC` | ALL page/layout backgrounds |
+| `--surface` | Light surface | Dark surface | `#F8F8F5` | Subtle section backgrounds |
 
-Full palette available in `src/constants/colors.ts`.
+Full hex scales available in `src/constants/colors.ts` (magenta, dusk, emerald, neutral).
 
 ### Health Score RAG Status
 
-These colours are core to the product and are used throughout:
+These colours are **semantic only** — never used for branding, hover states, or decoration:
 
 ```
-status-green:  #22C55E  — All clear, no outstanding actions
-status-amber:  #F59E0B  — Attention needed, upcoming or slightly overdue
-status-red:    #EF4444  — Urgent action required
+status-green:  #48BF84 (Emerald)  — All clear, no outstanding actions
+status-amber:  #F0A500            — Attention needed, upcoming or slightly overdue
+status-red:    #CC2200            — Urgent action required
 ```
 
-**Rule**: Colour alone must NEVER convey information. Always pair with text + icon (WCAG 2.1 AA).
+**Rules**:
+- Colour alone must NEVER convey information. Always pair with text + icon (WCAG 2.1 AA).
+- Status chips must include a text label alongside the colour indicator.
+- Emerald is semantic green only — never apply it to CTAs, buttons, links, or decorative elements.
+
+### Backgrounds & Surfaces
+
+- **Page background**: Always Porcelain (`#FFFFFC` / `bg-page`). No `bg-white` on page layouts.
+- **Card interior**: White (`#FFFFFF`) is permitted inside cards/modals only.
+- **Sidebar**: Always pure black (`#000000`). No other background colour.
 
 ### Semantic Colours (CSS variables)
 
 Defined in `src/styles/themes.css` using HSL colour space:
-- `--background` / `--foreground` — Page background and text
-- `--primary` / `--primary-foreground` — Primary actions
-- `--secondary` / `--secondary-foreground` — Secondary content
+- `--page` / `--surface` — Page background, subtle section bg
+- `--primary` / `--primary-foreground` — Primary actions (Magenta)
+- `--secondary` / `--secondary-foreground` — Info states (Dusk Blue)
 - `--muted` / `--muted-foreground` — Subdued content
-- `--destructive` — Danger/delete actions
+- `--destructive` — Danger/delete actions (`#CC2200`)
 - `--success` / `--warning` / `--info` — Semantic status
-- `--border` / `--input` / `--ring` — Form elements
+- `--border` / `--input` / `--ring` — Form elements (0.5px `#E5E5E0`)
 - `--card` / `--popover` — Elevated surfaces
 
 ## Typography
 
 ### Font
-- **DM Sans** — Primary font for all text (body and headings)
+- **Manrope** — The only permitted font for all text (body and headings)
 - Loaded via Google Fonts in `src/styles/globals.css`
+- No Inter, Roboto, Geist, or system-ui as primary font
 
 ### Scale
 
@@ -154,6 +166,28 @@ Mobile-first using custom screen config:
 - `md:` — 768px+ (tablets)
 - `lg:` — 1024px+ (desktop)
 - `xl:` — 1280px+ (large desktop)
+
+## Borders & Shadows
+
+### Borders
+- Default border: **0.5px solid `#E5E5E0`** (`border-border`)
+- All cards, inputs, and dividers use 0.5px
+- Only featured/highlighted cards use 2px borders
+
+### Shadows
+- **No decorative shadows** on cards, buttons, or containers
+- Only two permitted shadows:
+  - `shadow-advisor` — AI Advisor panel: `0 0 24px rgba(0,0,0,0.12)`
+  - `shadow-focus` — Focus rings: `0 0 0 2px hsl(var(--ring) / 0.4)`
+
+## Section Labels
+
+The **only** ALL CAPS text permitted in the UI:
+- Font: Manrope 700
+- Size: 10px (0.625rem)
+- Letter-spacing: 0.8px
+- CSS class: `.section-label`
+- Remove ALL CAPS from headings, buttons, nav items, and all other elements
 
 ## Dark Mode
 

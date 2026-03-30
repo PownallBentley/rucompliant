@@ -45,13 +45,21 @@ npm run test:all      # Run everything (unit + E2E)
 
 Full details in `docs/design.md`.
 
-- **Font**: DM Sans (loaded via Google Fonts in `src/styles/globals.css`)
+- **Font**: Manrope (loaded via Google Fonts in `src/styles/globals.css`). Only font. No Inter/Roboto/system-ui.
 - **Tokens**: HSL CSS custom properties in `src/styles/themes.css` (light + dark mode)
-- **Colours**: RUCompliant Blue (`#3B82F6`) primary. RAG health score: green/amber/red. Hex constants in `src/constants/colors.ts`.
+- **Primary colour**: Magenta (`#E43F6F`) — ALL CTAs, active nav, interactive elements
+- **Secondary colour**: Dusk Blue (`#345995`) — info states, links, tooltips
+- **Page background**: Porcelain (`#FFFFFC`) via `bg-page`. No `bg-white` on page layouts.
+- **Sidebar**: Always pure black (`#000000`)
+- **RAG health score**: Green (`#48BF84`), Amber (`#F0A500`), Red (`#CC2200`) — semantic status only, never decorative
+- **Borders**: 0.5px solid `#E5E5E0` default. Only featured cards use 2px.
+- **Shadows**: None decorative. Only `shadow-advisor` (flyout panel) and `shadow-focus` (focus rings).
+- **Section labels**: Only ALL CAPS text (10px / Manrope 700 / 0.8px letter-spacing). No other ALL CAPS.
 - **Components**: 15 shadcn primitives + 14 custom composites, all importable from `@/components/ui`
 - **Dark mode**: `ThemeProvider` + `useTheme` from `src/contexts/ThemeContext.tsx`. Tailwind `class` strategy.
 - **CSS entry point**: `src/styles/globals.css` (imported in `main.tsx`)
 - **Adding shadcn components**: `npx shadcn@latest add <component>`
+- **Hex constants**: `src/constants/colors.ts` — magenta, dusk, emerald, neutral scales + status/chart colours
 
 ## Architecture
 
@@ -96,7 +104,7 @@ docs/
 - **Auth**: Supabase Auth with magic link (no passwords). Auth state in `useAuthStore` Zustand store.
 - **Database**: All tables use Row Level Security (RLS). Migrations via Supabase CLI.
 - **Styling**: Tailwind utility classes only. Brand colours as CSS variables in `src/styles/themes.css`, Tailwind maps them in `tailwind.config.js`. See Design System section above.
-- **Health Score**: Three states — Green (all clear), Amber (attention needed), Red (urgent action). This is the core UX concept.
+- **Health Score**: Three RAG states — Green `#48BF84` (all clear), Amber `#F0A500` (attention needed), Red `#CC2200` (urgent action). Semantic only — never decorative.
 - **Plain English**: No jargon without inline tooltips. Target audience is non-technical (see PRD Persona 1 — Sarah, sole trader, low tech confidence).
 - **Mobile-first**: All layouts must work on iPhone-sized screens first, then scale up.
 

@@ -6,9 +6,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed
+- Migrated design system from generic blue to RUCompliant brand palette
+- Primary colour: Magenta (`#E43F6F`) replaces Blue (`#3B82F6`) for all CTAs and interactive elements
+- Secondary colour: Dusk Blue (`#345995`) for info states, links, tooltips
+- Page background: Porcelain (`#FFFFFC`) replaces white
+- Sidebar: Pure black (`#000000`)
+- RAG status colours updated: Green (`#48BF84`), Amber (`#F0A500`), Red (`#CC2200`)
+- Font: Manrope replaces DM Sans as the only permitted font
+- Removed all decorative shadows from cards, buttons, tooltips, dropdowns, switches
+- Default border width changed to 0.5px solid `#E5E5E0`
+- Added `section-label` CSS class for the only permitted ALL CAPS text
+- Only `shadow-advisor` (AI panel) and `shadow-focus` (focus rings) shadows remain
+- Updated Tailwind config with magenta, dusk, emerald scales and status tokens
+- Updated all component token usage (button, card, badge, alert, dialog, toast, etc.)
+- Updated CLAUDE.md, docs/design.md, and docs/engineering.md with RUCompliant brand guidelines
+- `/feature-done` skill now enforces documentation review before tests
+- Removed unsupported `allowed-tools` frontmatter from skill files
+
+### Removed
+- Unused `@fontsource-variable/geist` dependency
+
 ### Added
 - Initial project scaffolding with Vite + React 18 + TypeScript
-- Tailwind CSS v3 configuration with brand colours and Inter font
+- Tailwind CSS v3 configuration with RUCompliant brand colours and Manrope font
 - Supabase client setup (`src/lib/supabase.ts`)
 - Stripe client setup (`src/lib/stripe.ts`)
 - Zustand auth store (`src/stores/authStore.ts`)
@@ -26,10 +47,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - shadcn/ui component library (Radix UI + Tailwind) with 15 primitives
 - 14 custom composite components (Button, Card, Alert, Badge, Modal, FormField, Toggle, AppIcon, LoadingSpinner, EmptyState, ProgressBar, StatCard, IconCircle, CircularProgress, AvatarCircle, ThemeToggle, DropdownMenu, Toast)
 - Design token system (`src/styles/themes.css`) with HSL CSS variables for light/dark mode
-- RUCompliant Blue brand palette (`#3B82F6`) with RAG health score colours
 - Colour constants (`src/constants/colors.ts`) for JS usage
 - ThemeContext provider with dark/light mode toggle
-- DM Sans as primary font (body and headings)
 - Barrel export (`src/components/ui/index.ts`) for all UI components
 - Design system documentation (`docs/design.md`)
 - Separate `vitest.config.ts` for clean TypeScript compilation

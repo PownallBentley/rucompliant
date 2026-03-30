@@ -76,8 +76,10 @@ import type { HealthStatus } from '@/types'
 ### Styling
 
 - Tailwind CSS utility classes only — no custom CSS except for Tailwind `@apply` in rare cases
-- Brand colours: `brand-500` through `brand-900`
-- Health status: `status-green`, `status-amber`, `status-red`
+- Brand colours: `primary` (Magenta), `secondary` (Dusk Blue), `magenta-*`, `dusk-*`, `emerald-*` scales
+- Health status: `status-green` (`#48BF84`), `status-amber` (`#F0A500`), `status-red` (`#CC2200`) — semantic only
+- Page background: `bg-page` (Porcelain `#FFFFFC`). No `bg-white` on layouts.
+- Borders: 0.5px default. No decorative shadows.
 - Mobile-first: Start with base styles, add `sm:`, `md:`, `lg:` breakpoints
 
 ### State Management

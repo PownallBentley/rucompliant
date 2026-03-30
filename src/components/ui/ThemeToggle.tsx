@@ -73,7 +73,7 @@ export default function ThemeToggle({ variant = "switch", className }: ThemeTogg
       <div className="relative w-14 h-8 bg-secondary rounded-full transition-colors">
         <div
           className={cn(
-            "absolute top-1 left-1 w-6 h-6 bg-background rounded-full shadow-md transition-transform duration-200 flex items-center justify-center",
+            "absolute top-1 left-1 w-6 h-6 bg-background rounded-full transition-transform duration-200 flex items-center justify-center",
             isDark ? "translate-x-6" : "translate-x-0"
           )}
         >

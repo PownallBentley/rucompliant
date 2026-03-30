@@ -122,7 +122,7 @@ function ToastItem({
     <div
       role="alert"
       className={[
-        "flex items-start gap-3 px-4 py-3 rounded-xl border shadow-md",
+        "flex items-start gap-3 px-4 py-3 rounded-xl border",
         "transition-all duration-200",
         variantStyles[t.variant],
         visible

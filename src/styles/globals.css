@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap');
 @import './themes.css';
 
 @tailwind base;
@@ -8,9 +8,11 @@
 @layer base {
   * {
     @apply border-border;
+    border-width: 0;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-page text-foreground;
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }

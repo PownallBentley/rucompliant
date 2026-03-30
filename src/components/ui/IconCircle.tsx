@@ -52,12 +52,12 @@ const variantColorMap: Record<IconCircleVariant, Record<IconCircleColor, { bg: s
     neutral: { bg: "bg-muted", icon: "text-muted-foreground" },
   },
   ghost: {
-    primary: { bg: "bg-background", icon: "text-primary", border: "border border-border/50 shadow-sm" },
-    success: { bg: "bg-background", icon: "text-success", border: "border border-border/50 shadow-sm" },
-    warning: { bg: "bg-background", icon: "text-warning", border: "border border-border/50 shadow-sm" },
-    danger: { bg: "bg-background", icon: "text-destructive", border: "border border-border/50 shadow-sm" },
-    info: { bg: "bg-background", icon: "text-info", border: "border border-border/50 shadow-sm" },
-    neutral: { bg: "bg-background", icon: "text-muted-foreground", border: "border border-border/50 shadow-sm" },
+    primary: { bg: "bg-background", icon: "text-primary", border: "border border-border" },
+    success: { bg: "bg-background", icon: "text-success", border: "border border-border" },
+    warning: { bg: "bg-background", icon: "text-warning", border: "border border-border" },
+    danger: { bg: "bg-background", icon: "text-destructive", border: "border border-border" },
+    info: { bg: "bg-background", icon: "text-info", border: "border border-border" },
+    neutral: { bg: "bg-background", icon: "text-muted-foreground", border: "border border-border" },
   },
 };
 
