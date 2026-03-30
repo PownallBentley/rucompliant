@@ -2,7 +2,6 @@
 name: test
 description: Run the test suite (unit, component, and optionally E2E) and report results
 disable-model-invocation: false
-allowed-tools: Bash(npm run test*), Bash(npx playwright*), Read
 argument-hint: "[all|unit|e2e]"
 ---
 

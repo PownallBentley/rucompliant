@@ -1,78 +1,100 @@
 // src/constants/colors.ts
-// Centralized color constants matching Tailwind theme
+// RUCompliant brand colour constants matching Tailwind theme
 
 export const COLORS = {
-  // Primary colors — RUCompliant Blue
-  primary: {
-    50: "#EFF6FF",
-    100: "#DBEAFE",
-    200: "#BFDBFE",
-    300: "#93C5FD",
-    400: "#60A5FA",
-    500: "#3B82F6",
-    600: "#2563EB", // Main brand color
-    700: "#1D4ED8",
-    800: "#1E40AF",
-    900: "#1E3A8A",
+  // Primary — Magenta
+  magenta: {
+    50: "#FDE8EF",
+    100: "#FBD1DF",
+    200: "#F7A3BF",
+    300: "#F2759F",
+    400: "#E43F6F", // Main brand primary
+    500: "#D1325F",
+    600: "#B5294F",
+    700: "#8F1F3D",
+    800: "#69162D",
+    900: "#430E1D",
   },
 
-  // Neutral colors
+  // Secondary — Dusk Blue
+  dusk: {
+    50: "#E8EDF5",
+    100: "#D1DBEB",
+    200: "#A3B7D7",
+    300: "#7593C3",
+    400: "#4A70AB",
+    500: "#345995", // Main dusk blue
+    600: "#2B4A7B",
+    700: "#213A61",
+    800: "#172B47",
+    900: "#0E1B2D",
+  },
+
+  // Neutral
   neutral: {
-    0: "#FFFFFF",
-    50: "#F9FAFC",
-    100: "#F6F7FB",
-    200: "#E1E4EE",
-    300: "#CFD3E0",
-    400: "#A8AEBD",
-    500: "#6C7280",
-    600: "#4B5161",
-    700: "#1F2330",
-    800: "#121420",
-    900: "#050611",
+    0: "#FFFFFC",    // Porcelain (page bg)
+    50: "#F8F8F5",   // Surface
+    100: "#F0F0EC",
+    200: "#E5E5E0",  // Border default
+    300: "#CCCCCC",
+    400: "#AAAAAA",
+    500: "#888888",  // Muted text
+    600: "#666666",
+    700: "#333333",
+    800: "#1A1A1A",
+    900: "#000000",  // Black (sidebar, foreground)
   },
 
-  // Accent colors
-  accent: {
-    green: "#22C55E",
-    amber: "#F59E0B",
-    red: "#EF4444",
-    blue: "#3B82F6",
-    purple: "#7C3AED",
-    pink: "#EC4899",
-    orange: "#F97316",
-    lime: "#84CC16",
-    indigo: "#6366F1",
+  // Emerald — semantic green only (RAG status)
+  emerald: {
+    50: "#E8F8F0",
+    100: "#D1F1E1",
+    200: "#A3E3C3",
+    300: "#75D5A5",
+    400: "#48BF84", // RAG Green
+    500: "#3AA36F",
+    600: "#2D875A",
+    700: "#1F6B45",
+    800: "#124F30",
+    900: "#04331B",
   },
 
-  // Semantic colors
-  success: "#22C55E",
-  warning: "#F59E0B",
-  danger: "#EF4444",
-  info: "#06B6D4",
+  // Semantic / Status — RAG only
+  status: {
+    green: "#48BF84",
+    amber: "#F0A500",
+    red: "#CC2200",
+  },
 
-  // Chart colors (for data visualization)
+  // Functional semantic aliases
+  success: "#48BF84",
+  warning: "#F0A500",
+  danger: "#CC2200",
+  info: "#345995",
+
+  // Chart colors (data visualisation)
   chart: [
-    "#3B82F6", // primary
-    "#60A5FA", // primary-400
-    "#93C5FD", // primary-300
-    "#22C55E", // success
-    "#F59E0B", // warning
-    "#EF4444", // danger
+    "#E43F6F", // magenta (primary)
+    "#48BF84", // emerald
+    "#F0A500", // amber
+    "#345995", // dusk blue
+    "#8B5CF6", // violet
+    "#CC2200", // red
   ],
 } as const;
 
-// Compliance Health Score colors (RAG status)
+// Compliance Health Score colours (RAG status)
 export const HEALTH_SCORE_COLORS = {
-  green: COLORS.accent.green,
-  amber: COLORS.accent.amber,
-  red: COLORS.accent.red,
+  green: COLORS.status.green,
+  amber: COLORS.status.amber,
+  red: COLORS.status.red,
 } as const;
 
-// Status colors
+// Status colours
 export const STATUS_COLORS = {
-  on_track: COLORS.accent.green,
-  needs_attention: COLORS.accent.amber,
-  behind: COLORS.accent.red,
-  completed: COLORS.accent.purple,
+  on_track: COLORS.status.green,
+  needs_attention: COLORS.status.amber,
+  behind: COLORS.status.red,
+  completed: COLORS.magenta[400],
   not_started: COLORS.neutral[400],
 } as const;

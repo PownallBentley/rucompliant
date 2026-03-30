@@ -1,11 +1,8 @@
 /* ============================================================================
-   Design Tokens
+   RUCompliant Design Tokens
    ============================================================================
    All color values use HSL format for shadcn compatibility.
    This enables Tailwind opacity modifiers like bg-primary/10.
-
-   TODO: Replace primary, chart, and gradient colors with your brand palette.
-   Everything else (structure, typography, spacing) is ready to use as-is.
    ============================================================================ */
 
 /* ----------------------------------------------------------------------------
@@ -14,68 +11,72 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;              /* #FFFFFF */
-    --foreground: 226 21% 15%;            /* #1F2330 */
+    --background: 60 100% 99%;               /* Porcelain #FFFFFC */
+    --foreground: 0 0% 0%;                   /* #000000 */
 
-    --card: 0 0% 100%;                    /* #FFFFFF */
-    --card-foreground: 226 21% 15%;       /* #1F2330 */
+    --card: 0 0% 100%;                       /* #FFFFFF (cards can be white) */
+    --card-foreground: 0 0% 0%;              /* #000000 */
 
     --popover: 0 0% 100%;
-    --popover-foreground: 226 21% 15%;
+    --popover-foreground: 0 0% 0%;
 
-    --primary: 217 91% 60%;               /* RUCompliant Blue #3B82F6 */
-    --primary-foreground: 0 0% 100%;      /* #FFFFFF */
+    --primary: 343 74% 57%;                  /* Magenta #E43F6F */
+    --primary-foreground: 0 0% 100%;         /* #FFFFFF */
 
-    --secondary: 220 14% 96%;             /* #F3F4F6 */
-    --secondary-foreground: 226 21% 15%;  /* #1F2330 */
+    --secondary: 215 47% 40%;               /* Dusk Blue #345995 */
+    --secondary-foreground: 0 0% 100%;       /* #FFFFFF */
 
-    --muted: 220 14% 96%;                 /* #F3F4F6 */
-    --muted-foreground: 220 9% 46%;       /* #6B7280 */
+    --muted: 60 4% 91%;                      /* #E9E9E4 */
+    --muted-foreground: 0 0% 53%;            /* #888888 */
 
-    --accent: 220 14% 96%;                /* #F3F4F6 */
-    --accent-foreground: 226 21% 15%;     /* #1F2330 */
+    --accent: 60 4% 91%;                     /* #E9E9E4 */
+    --accent-foreground: 0 0% 0%;            /* #000000 */
 
-    --destructive: 347 77% 50%;           /* #E11D48 */
+    --destructive: 10 100% 40%;              /* #CC2200 */
     --destructive-foreground: 0 0% 100%;
 
-    --success: 84 81% 44%;                /* #84CC16 */
+    --success: 149 45% 52%;                  /* #48BF84 Emerald */
     --success-foreground: 0 0% 100%;
 
-    --warning: 32 95% 44%;                /* #D97706 */
-    --warning-foreground: 0 0% 100%;
+    --warning: 39 100% 47%;                  /* #F0A500 */
+    --warning-foreground: 0 0% 0%;           /* Black text on amber */
 
-    --info: 188 94% 43%;                  /* #06B6D4 */
+    --info: 215 47% 40%;                     /* Dusk Blue #345995 */
     --info-foreground: 0 0% 100%;
 
-    --border: 220 13% 91%;                /* #E5E7EB */
-    --input: 220 13% 91%;                 /* #E5E7EB */
-    --ring: 217 91% 60%;                  /* match primary */
+    --border: 60 4% 89%;                     /* #E5E5E0 */
+    --input: 60 4% 89%;                      /* #E5E5E0 */
+    --ring: 343 74% 57%;                     /* Magenta — match primary */
 
-    --radius: 0.625rem;                   /* 10px */
+    --radius: 0.625rem;                      /* 10px */
 
-    /* Accent color (gamification, highlights) */
-    --lime: 84 81% 44%;
-    --lime-foreground: 0 0% 100%;
+    /* Page background token */
+    --page: 60 100% 99%;                     /* Porcelain #FFFFFC */
 
-    /* Streak / engagement accent */
-    --streak: 24 95% 53%;                 /* Orange-500 */
-    --streak-foreground: 0 0% 100%;
+    /* Surface (subtle bg for sections) */
+    --surface: 60 9% 97%;                    /* #F8F8F5 */
 
-    --chart-1: 217 91% 60%;               /* primary */
-    --chart-2: 84 81% 44%;                /* lime */
-    --chart-3: 32 95% 44%;                /* amber */
-    --chart-4: 188 94% 43%;               /* cyan */
-    --chart-5: 258 90% 66%;               /* violet */
+    /* RAG Status — semantic only */
+    --status-green: 149 45% 52%;             /* #48BF84 */
+    --status-amber: 39 100% 47%;             /* #F0A500 */
+    --status-red: 10 100% 40%;               /* #CC2200 */
 
-    /* Sidebar */
-    --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 226 21% 15%;
-    --sidebar-primary: 217 91% 60%;       /* match primary */
+    /* Chart colors */
+    --chart-1: 343 74% 57%;                  /* magenta (primary) */
+    --chart-2: 149 45% 52%;                  /* emerald */
+    --chart-3: 39 100% 47%;                  /* amber */
+    --chart-4: 215 47% 40%;                  /* dusk blue */
+    --chart-5: 258 90% 66%;                  /* violet */
+
+    /* Sidebar — always black */
+    --sidebar-background: 0 0% 0%;           /* #000000 */
+    --sidebar-foreground: 0 0% 100%;         /* #FFFFFF */
+    --sidebar-primary: 343 74% 57%;          /* Magenta */
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 220 14% 96%;
-    --sidebar-accent-foreground: 226 21% 15%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217 91% 60%;          /* match primary */
+    --sidebar-accent: 0 0% 12%;              /* #1F1F1F */
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 0 0% 20%;              /* #333333 */
+    --sidebar-ring: 343 74% 57%;             /* Magenta */
   }
 
   /* --------------------------------------------------------------------------
@@ -83,74 +84,75 @@
      -------------------------------------------------------------------------- */
 
   .dark {
-    --background: 218 63% 10%;             /* #0A1628 */
-    --foreground: 220 13% 91%;             /* #E5E7EB */
+    --background: 0 0% 5%;                   /* #0D0D0D */
+    --foreground: 60 4% 89%;                 /* #E5E5E0 */
 
-    --card: 220 45% 13%;                   /* #121E2E */
-    --card-foreground: 220 13% 91%;
+    --card: 0 0% 9%;                         /* #171717 */
+    --card-foreground: 60 4% 89%;
 
-    --popover: 220 45% 13%;
-    --popover-foreground: 220 13% 91%;
+    --popover: 0 0% 9%;
+    --popover-foreground: 60 4% 89%;
 
-    --primary: 217 91% 70%;               /* Blue-400 for dark mode */
+    --primary: 343 74% 62%;                  /* Magenta lighter for dark */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 35% 18%;
-    --secondary-foreground: 220 13% 91%;
+    --secondary: 215 47% 50%;               /* Dusk Blue lighter */
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 220 35% 18%;
-    --muted-foreground: 220 9% 65%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
 
-    --accent: 220 35% 18%;
-    --accent-foreground: 220 13% 91%;
+    --accent: 0 0% 15%;
+    --accent-foreground: 60 4% 89%;
 
-    --destructive: 347 77% 60%;
+    --destructive: 10 100% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --success: 84 81% 44%;
+    --success: 149 45% 52%;
     --success-foreground: 0 0% 100%;
 
-    --warning: 38 92% 50%;
-    --warning-foreground: 0 0% 100%;
+    --warning: 39 100% 55%;
+    --warning-foreground: 0 0% 0%;
 
-    --info: 188 94% 43%;
+    --info: 215 47% 55%;
     --info-foreground: 0 0% 100%;
 
-    --border: 220 35% 18%;
-    --input: 220 30% 23%;
-    --ring: 217 91% 70%;                  /* match dark primary */
+    --border: 0 0% 20%;
+    --input: 0 0% 23%;
+    --ring: 343 74% 62%;
 
-    --lime: 84 81% 44%;
-    --lime-foreground: 0 0% 100%;
+    --page: 0 0% 5%;
+    --surface: 0 0% 9%;
 
-    --streak: 25 95% 53%;
-    --streak-foreground: 0 0% 100%;
+    --status-green: 149 45% 52%;
+    --status-amber: 39 100% 55%;
+    --status-red: 10 100% 50%;
 
-    --chart-1: 217 91% 70%;
-    --chart-2: 84 81% 44%;
-    --chart-3: 38 92% 50%;
-    --chart-4: 188 94% 43%;
+    --chart-1: 343 74% 62%;
+    --chart-2: 149 45% 52%;
+    --chart-3: 39 100% 55%;
+    --chart-4: 215 47% 55%;
     --chart-5: 258 90% 66%;
 
-    --sidebar-background: 220 45% 13%;
-    --sidebar-foreground: 220 13% 91%;
-    --sidebar-primary: 217 91% 70%;       /* match primary */
+    --sidebar-background: 0 0% 0%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 343 74% 62%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 220 35% 18%;
-    --sidebar-accent-foreground: 220 13% 91%;
-    --sidebar-border: 220 35% 18%;
-    --sidebar-ring: 217 91% 70%;          /* match primary */
+    --sidebar-accent: 0 0% 12%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 343 74% 62%;
   }
 }
 
 /* ============================================================================
-   STATIC TOKENS - Theme-independent values (no changes needed)
+   STATIC TOKENS - Theme-independent values
    ============================================================================ */
 
 :root {
-  /* Typography */
-  --font-family-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-family-display: 'DM Sans', sans-serif;
+  /* Typography — Manrope only */
+  --font-family-sans: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-family-display: 'Manrope', sans-serif;
   --font-family-mono: 'Fira Code', 'Monaco', 'Courier New', monospace;
 
   --font-size-2xs: 0.625rem;
@@ -191,21 +193,18 @@
 }
 
 /* ============================================================================
-   CUSTOM SHADOWS
+   SHADOWS — Minimal. No decorative shadows.
+   Only advisor panel shadow and focus rings permitted.
    ============================================================================ */
 
 :root {
-  --shadow-soft: 0 2px 8px 0 rgb(0 0 0 / 0.08);
-  --shadow-button: 0 2px 8px 0 rgb(59 130 246 / 0.30);
-
-  --gradient-main: linear-gradient(135deg, hsl(var(--primary) / 0.08) 0%, hsl(220 14% 96%) 40%, hsl(var(--success) / 0.08) 100%);
+  --shadow-advisor: 0 0 24px rgba(0, 0, 0, 0.12);
+  --shadow-focus: 0 0 0 2px hsl(var(--ring) / 0.4);
 }
 
 .dark {
-  --shadow-soft: 0 2px 8px 0 rgb(0 0 0 / 0.25);
-  --shadow-button: 0 2px 8px 0 rgb(96 165 250 / 0.35);
-
-  --gradient-main: linear-gradient(135deg, hsl(var(--primary) / 0.15) 0%, hsl(var(--background)) 40%, hsl(var(--success) / 0.10) 100%);
+  --shadow-advisor: 0 0 24px rgba(0, 0, 0, 0.3);
+  --shadow-focus: 0 0 0 2px hsl(var(--ring) / 0.4);
 }
 
 /* ============================================================================
@@ -225,6 +224,15 @@ body {
 .focus-ring {
   outline: 2px solid hsl(var(--ring));
   outline-offset: 2px;
+}
+
+/* Section labels — the ONLY all-caps text */
+.section-label {
+  font-family: var(--font-family-display);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
 }
 
 .sr-only {

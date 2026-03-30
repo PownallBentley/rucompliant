@@ -124,7 +124,7 @@ export default function DropdownMenu({
             "absolute z-[var(--z-dropdown)]",
             positionClasses,
             width,
-            "bg-background rounded-xl shadow-soft border border-border/60 py-1",
+            "bg-background rounded-xl border border-border py-1",
             "transition-all duration-150",
           ].join(" ")}
         >

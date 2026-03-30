@@ -21,11 +21,14 @@ export default {
   	},
   	extend: {
   		colors: {
+  			/* ── Core semantic tokens (from CSS vars) ── */
   			border: 'hsl(var(--border))',
   			input: 'hsl(var(--input))',
   			ring: 'hsl(var(--ring))',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
+  			page: 'hsl(var(--page))',
+  			surface: 'hsl(var(--surface))',
   			primary: {
   				DEFAULT: 'hsl(var(--primary))',
   				foreground: 'hsl(var(--primary-foreground))'
@@ -76,25 +79,63 @@ export default {
   				border: 'hsl(var(--sidebar-border))',
   				ring: 'hsl(var(--sidebar-ring))'
   			},
-  			lime: {
-  				DEFAULT: 'hsl(var(--lime))',
-  				foreground: 'hsl(var(--lime-foreground))'
-  			},
-  			streak: {
-  				DEFAULT: 'hsl(var(--streak))',
-  				foreground: 'hsl(var(--streak-foreground))'
-  			},
   			chart: {
   				'1': 'hsl(var(--chart-1))',
   				'2': 'hsl(var(--chart-2))',
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
-  			}
+  			},
+
+  			/* ── RUCompliant brand palette (direct hex) ── */
+  			magenta: {
+  				50: '#FDE8EF',
+  				100: '#FBD1DF',
+  				200: '#F7A3BF',
+  				300: '#F2759F',
+  				400: '#E43F6F',
+  				DEFAULT: '#E43F6F',
+  				500: '#D1325F',
+  				600: '#B5294F',
+  				700: '#8F1F3D',
+  				800: '#69162D',
+  				900: '#430E1D',
+  			},
+  			dusk: {
+  				50: '#E8EDF5',
+  				100: '#D1DBEB',
+  				200: '#A3B7D7',
+  				300: '#7593C3',
+  				400: '#4A70AB',
+  				DEFAULT: '#345995',
+  				500: '#345995',
+  				600: '#2B4A7B',
+  				700: '#213A61',
+  				800: '#172B47',
+  				900: '#0E1B2D',
+  			},
+  			emerald: {
+  				50: '#E8F8F0',
+  				100: '#D1F1E1',
+  				200: '#A3E3C3',
+  				300: '#75D5A5',
+  				400: '#48BF84',
+  				DEFAULT: '#48BF84',
+  				500: '#3AA36F',
+  				600: '#2D875A',
+  				700: '#1F6B45',
+  				800: '#124F30',
+  				900: '#04331B',
+  			},
+
+  			/* ── RAG status tokens ── */
+  			'status-green': 'hsl(var(--status-green))',
+  			'status-amber': 'hsl(var(--status-amber))',
+  			'status-red': 'hsl(var(--status-red))',
   		},
   		fontFamily: {
-  			sans: 'var(--font-family-sans)',
-  			display: 'var(--font-family-display)'
+  			sans: "'Manrope', -apple-system, BlinkMacSystemFont, sans-serif",
+  			display: "'Manrope', sans-serif"
   		},
   		fontSize: {
   			'2xs': ['var(--font-size-2xs)', { lineHeight: '1.25' }],
@@ -127,12 +168,20 @@ export default {
   			'2xl': '1.5rem',
   			pill: '9999px'
   		},
+  		borderWidth: {
+  			DEFAULT: '0.5px',
+  			'0': '0',
+  			'1': '1px',
+  			'2': '2px',
+  			'4': '4px',
+  		},
   		boxShadow: {
-  			soft: 'var(--shadow-soft)',
-  			button: 'var(--shadow-button)'
+  			'none': 'none',
+  			'advisor': 'var(--shadow-advisor)',
+  			'focus': 'var(--shadow-focus)',
   		},
   		backgroundImage: {
-  			'hero-soft': 'linear-gradient(135deg, hsl(var(--primary) / 0.05) 0%, hsl(var(--primary) / 0.02) 50%, hsl(var(--background)) 100%)',
+  			'hero-soft': 'linear-gradient(135deg, hsl(var(--primary) / 0.05) 0%, hsl(var(--primary) / 0.02) 50%, hsl(var(--page)) 100%)',
   			'gradient-button': 'linear-gradient(135deg, hsl(var(--primary) / 0.9) 0%, hsl(var(--primary)) 100%)',
   			'gradient-primary': 'linear-gradient(to bottom right, hsl(var(--primary) / 0.5), hsl(var(--primary)))',
   			'gradient-success': 'linear-gradient(to bottom right, hsl(var(--success) / 0.5), hsl(var(--success)))',
