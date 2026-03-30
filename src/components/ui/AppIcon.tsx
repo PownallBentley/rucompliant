@@ -49,6 +49,7 @@ import {
   Cloud,
   Coffee,
   Coins,
+  Compass,
   Copy,
   Crown,
   Disc,
@@ -86,6 +87,7 @@ import {
   Languages,
   Laptop,
   Layout,
+  LayoutDashboard,
   LayoutGrid,
   Leaf,
   Lightbulb,
@@ -330,8 +332,11 @@ export const ICON_MAP = {
   "file-text": FileText,
   file: File,
   layout: Layout,
+  "layout-dashboard": LayoutDashboard,
+  layoutDashboard: LayoutDashboard, // camelCase alias
   "layout-grid": LayoutGrid,
   layoutGrid: LayoutGrid, // camelCase alias
+  compass: Compass,
   expand: Expand,
   minimize: Minimize,
   maximize: Maximize,

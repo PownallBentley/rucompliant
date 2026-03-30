@@ -1,21 +1,40 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import PublicLayout from '@/components/layout/PublicLayout'
+import AppLayout from '@/components/layout/AppLayout'
+import ProtectedRoute from '@/components/auth/ProtectedRoute'
+import LandingPage from '@/pages/LandingPage'
+import AuthPage from '@/pages/AuthPage'
+import AuthCallbackPage from '@/pages/AuthCallbackPage'
+import OnboardingPage from '@/pages/OnboardingPage'
+import DashboardPage from '@/pages/DashboardPage'
+import ConciergePage from '@/pages/ConciergePage'
+import CalendarPage from '@/pages/CalendarPage'
+import DocumentsPage from '@/pages/DocumentsPage'
+import SettingsPage from '@/pages/SettingsPage'
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-page">
-        <Routes>
-          <Route path="/" element={
-            <div className="flex items-center justify-center min-h-screen">
-              <div className="text-center">
-                <h1 className="text-4xl font-bold text-primary mb-4">RUCompliant</h1>
-                <p className="text-lg text-foreground">Compliance that has your back</p>
-                <p className="text-sm text-muted-foreground mt-2">Platform setup in progress</p>
-              </div>
-            </div>
-          } />
-        </Routes>
-      </div>
+      <Routes>
+        {/* Public routes */}
+        <Route element={<PublicLayout />}>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/auth" element={<AuthPage />} />
+          <Route path="/auth/callback" element={<AuthCallbackPage />} />
+          <Route path="/onboarding" element={<OnboardingPage />} />
+        </Route>
+
+        {/* Protected app routes */}
+        <Route element={<ProtectedRoute />}>
+          <Route element={<AppLayout />}>
+            <Route path="/app/dashboard" element={<DashboardPage />} />
+            <Route path="/app/journey" element={<ConciergePage />} />
+            <Route path="/app/calendar" element={<CalendarPage />} />
+            <Route path="/app/documents" element={<DocumentsPage />} />
+            <Route path="/app/settings" element={<SettingsPage />} />
+          </Route>
+        </Route>
+      </Routes>
     </BrowserRouter>
   )
 }
