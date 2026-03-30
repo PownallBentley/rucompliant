@@ -81,6 +81,7 @@ Supabase replaces what would traditionally be a separate API server, auth servic
 - Email sending via Resend (compliance reminders, digest emails, escalation alerts)
 - Assessment scoring logic
 - AI Advisor query processing (Phase 3+)
+- Calendar seed logic (TODO: migrate from client-side `calendarSeedService.ts` to Edge Function for independent triggering)
 
 ### External Services
 
