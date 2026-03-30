@@ -5,11 +5,11 @@ import App from './App'
 describe('App', () => {
   it('renders the landing page headline', () => {
     render(<App />)
-    expect(screen.getByText('Compliance That Has Your Back')).toBeInTheDocument()
+    expect(screen.getByText('Are you compliant?')).toBeInTheDocument()
   })
 
   it('renders the get started CTA', () => {
     render(<App />)
-    expect(screen.getByText('Get Started')).toBeInTheDocument()
+    expect(screen.getAllByText(/Get started free/i).length).toBeGreaterThan(0)
   })
 })
