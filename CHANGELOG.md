@@ -33,6 +33,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - 9 placeholder pages: Landing, Auth, AuthCallback, Onboarding, Dashboard, Concierge, Calendar, Documents, Settings
 - Full route structure: public routes via PublicLayout, protected routes via AppLayout
 - Floating "Ask Advisor" button placeholder in AppLayout
+- 5-question onboarding flow using QuestionFlow component (F-009)
+- Onboarding service: saves business profile, creates initial health score (Amber), creates domain scores
+- Animated "Building your compliance picture..." loading screen on completion
 - Auth pages matching UX design: signup form, magic link sent confirmation, auth callback redirect (F-008)
 - MagicLinkSent component with resend functionality
 - AuthCallbackPage routes users to /onboarding or /app/dashboard based on onboarding status
