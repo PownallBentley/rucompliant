@@ -12,7 +12,8 @@ RUCompliant is a compliance-as-a-service SaaS platform for UK microbusinesses (s
 
 - **Build**: Vite
 - **Frontend**: React 18 + TypeScript (strict mode)
-- **Styling**: Tailwind CSS v3
+- **Styling**: Tailwind CSS v3 + shadcn/ui (Radix UI primitives)
+- **UI Components**: shadcn/ui — add with `npx shadcn@latest add <component>`
 - **State**: Zustand (stores in `src/stores/`)
 - **Routing**: React Router v6
 - **Backend**: Supabase (PostgreSQL + Auth + Storage + Edge Functions + Realtime + RLS)
@@ -40,19 +41,34 @@ npm run test:all      # Run everything (unit + E2E)
 - `/test` — Run test suite on demand (`/test`, `/test e2e`, `/test all`)
 - `/feature-done` — Lint → test → build → commit → push → create PR to develop
 
+## Design System
+
+Full details in `docs/design.md`.
+
+- **Font**: DM Sans (loaded via Google Fonts in `src/styles/globals.css`)
+- **Tokens**: HSL CSS custom properties in `src/styles/themes.css` (light + dark mode)
+- **Colours**: RUCompliant Blue (`#3B82F6`) primary. RAG health score: green/amber/red. Hex constants in `src/constants/colors.ts`.
+- **Components**: 15 shadcn primitives + 14 custom composites, all importable from `@/components/ui`
+- **Dark mode**: `ThemeProvider` + `useTheme` from `src/contexts/ThemeContext.tsx`. Tailwind `class` strategy.
+- **CSS entry point**: `src/styles/globals.css` (imported in `main.tsx`)
+- **Adding shadcn components**: `npx shadcn@latest add <component>`
+
 ## Architecture
 
 ```
 src/
-├── components/     # React components (PascalCase files)
+├── components/     # React components
+│   └── ui/         # Design system (shadcn primitives + custom composites)
 ├── pages/          # Route-level page components
 ├── hooks/          # Custom React hooks (useCamelCase)
 ├── services/       # API calls and business logic
 ├── stores/         # Zustand stores (camelCaseStore.ts)
 ├── types/          # TypeScript type definitions
 ├── utils/          # Pure utility functions
-├── context/        # React context providers
-└── lib/            # Client singletons (supabase.ts, stripe.ts)
+├── contexts/       # React context providers (ThemeContext)
+├── constants/      # Static constants (colors.ts, icons.ts)
+├── styles/         # CSS (globals.css, themes.css)
+└── lib/            # Client singletons (supabase.ts, stripe.ts, utils.ts)
 
 supabase/
 ├── functions/      # Edge Functions (Deno/TypeScript)
@@ -62,6 +78,7 @@ supabase/
 docs/
 ├── RUCompliant_PRD_v4.1.pdf   # Product Requirements Document
 ├── architecture.md             # System architecture
+├── design.md                   # Design system documentation
 └── engineering.md              # Engineering standards & workflow
 ```
 
@@ -78,7 +95,7 @@ docs/
 - **Path alias**: `@/` maps to `src/` (e.g., `import { supabase } from '@/lib/supabase'`)
 - **Auth**: Supabase Auth with magic link (no passwords). Auth state in `useAuthStore` Zustand store.
 - **Database**: All tables use Row Level Security (RLS). Migrations via Supabase CLI.
-- **Styling**: Tailwind utility classes only. Brand colours defined in `tailwind.config.js` (`brand-*`, `status-green/amber/red`).
+- **Styling**: Tailwind utility classes only. Brand colours as CSS variables in `src/styles/themes.css`, Tailwind maps them in `tailwind.config.js`. See Design System section above.
 - **Health Score**: Three states — Green (all clear), Amber (attention needed), Red (urgent action). This is the core UX concept.
 - **Plain English**: No jargon without inline tooltips. Target audience is non-technical (see PRD Persona 1 — Sarah, sole trader, low tech confidence).
 - **Mobile-first**: All layouts must work on iPhone-sized screens first, then scale up.
