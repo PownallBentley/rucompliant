@@ -3,7 +3,7 @@ import { useAuthStore } from '@/stores/authStore'
 import { LoadingSpinner } from '@/components/ui'
 
 export default function ProtectedRoute() {
-  const { user, loading } = useAuthStore()
+  const { user, loading, onboardingCompleted } = useAuthStore()
 
   if (loading) {
     return (
@@ -17,7 +17,9 @@ export default function ProtectedRoute() {
     return <Navigate to="/auth" replace />
   }
 
-  // Future: check onboarding completion (F-009)
-  // For now, authenticated users go straight through
+  if (onboardingCompleted === false) {
+    return <Navigate to="/onboarding" replace />
+  }
+
   return <Outlet />
 }

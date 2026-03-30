@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import AuthProvider from '@/components/auth/AuthProvider'
 import PublicLayout from '@/components/layout/PublicLayout'
 import AppLayout from '@/components/layout/AppLayout'
 import ProtectedRoute from '@/components/auth/ProtectedRoute'
@@ -14,6 +15,7 @@ import SettingsPage from '@/pages/SettingsPage'
 
 function App() {
   return (
+    <AuthProvider>
     <BrowserRouter>
       <Routes>
         {/* Landing page — full width, own nav */}
@@ -38,6 +40,7 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
+    </AuthProvider>
   )
 }
 

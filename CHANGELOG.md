@@ -33,6 +33,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - 9 placeholder pages: Landing, Auth, AuthCallback, Onboarding, Dashboard, Concierge, Calendar, Documents, Settings
 - Full route structure: public routes via PublicLayout, protected routes via AppLayout
 - Floating "Ask Advisor" button placeholder in AppLayout
+- Auth service with magic link sign-in, sign-out, session management, and onboarding check (F-007)
+- AuthProvider component wiring Supabase auth state to Zustand store
+- ProtectedRoute now redirects to /onboarding if onboarding not completed
 - Full landing page with 7 sections matching UX design (F-023): Hero, Trust Strip, Problem, How It Works, Pricing, Final CTA, Footer
 - 8 reusable landing components: LandingNav, HeroHealthCard, EmailSignup, TrustBadges, StatStrip, SectionHeader, FeatureCard, NumberedStep, PricingCard, LandingFooter
 - Landing page renders outside PublicLayout (full-width with own nav)
