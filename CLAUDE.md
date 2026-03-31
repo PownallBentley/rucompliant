@@ -71,6 +71,7 @@ src/
 │   ├── auth/       # ProtectedRoute, AuthProvider, MagicLinkSent
 │   ├── dashboard/  # DomainBreakdown, NextActions
 │   ├── calendar/   # CalendarHeader, MonthGrid
+│   ├── vault/      # DocumentUpload, DocumentList
 │   ├── concierge/  # StageSelector, StageProgress
 │   ├── settings/   # SettingsCard, SettingsField, SettingsToggle, AvatarUpload
 │   ├── landing/    # LandingNav, HeroHealthCard, EmailSignup, PricingCard, etc.

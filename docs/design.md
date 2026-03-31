@@ -89,6 +89,13 @@ Calendar components in `src/components/calendar/`:
 | `CalendarHeader` | Month/year navigation, today button, list/month view toggle |
 | `MonthGrid` | Month grid view with coloured urgency dots per day |
 
+Vault components in `src/components/vault/`:
+
+| Component | Use case |
+|-----------|----------|
+| `DocumentUpload` | Upload modal with drag-drop, category selector, expiry date, file validation |
+| `DocumentList` | Document rows with file icons, badges, expiry coding, download/delete |
+
 ### Adding New shadcn Components
 
 ```bash
