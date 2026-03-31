@@ -37,6 +37,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - CalendarHeader with month navigation, today button, and view toggle
 - MonthGrid with coloured urgency dots per day
 - Calendar service and store for fetching/completing tasks
+- Document Vault page with upload, category tabs, expiry tracking, and download/delete (F-016)
+- DocumentUpload modal with drag-drop, category selector, expiry date, file validation (PDF/JPG/PNG, 25MB)
+- DocumentList with file icons, category badges, expiry colour coding, inline delete confirmation
+- Document service for Supabase Storage upload/download/delete with metadata
 - Concierge Journey page with stage selector, progress bar, and task checklist (F-014)
 - StageSelector component with completion indicators and progress counts
 - StageProgress component with percentage bar and stage complete celebration
