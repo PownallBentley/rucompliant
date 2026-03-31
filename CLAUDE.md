@@ -69,6 +69,7 @@ src/
 │   ├── ui/         # Design system (shadcn primitives + custom composites)
 │   ├── layout/     # AppLayout, Sidebar, PublicLayout, MobileNav
 │   ├── auth/       # ProtectedRoute, AuthProvider, MagicLinkSent
+│   ├── dashboard/  # DomainBreakdown, NextActions
 │   ├── settings/   # SettingsCard, SettingsField, SettingsToggle, AvatarUpload
 │   ├── landing/    # LandingNav, HeroHealthCard, EmailSignup, PricingCard, etc.
 │   └── shared/     # Reusable feature components (RagStatus, TaskList, QuestionFlow)
