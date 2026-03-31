@@ -13,7 +13,7 @@ export default function LandingNav() {
       </div>
 
       <div className="flex items-center gap-2 sm:gap-4">
-        <Link to="/auth">
+        <Link to="/auth?mode=signin">
           <button className="px-3 sm:px-4 py-2 h-[44px] text-primary font-bold text-sm bg-white border-[1.5px] border-primary rounded-lg hover:bg-primary/5 transition-colors hidden sm:block">
             Sign in
           </button>

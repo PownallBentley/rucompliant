@@ -63,7 +63,8 @@ export async function saveBusinessProfile(userId: string, answers: OnboardingAns
   if (insertError) {
     if (insertError.code === '23505') {
       // Unique violation — profile exists, update instead
-      const { user_id: _, ...updateData } = profileData
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { user_id: _uid, ...updateData } = profileData
       const { error: updateError } = await supabase
         .from('business_profiles')
         .update(updateData)
