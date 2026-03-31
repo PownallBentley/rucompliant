@@ -130,7 +130,12 @@ subscriptions            # Stripe subscription state (synced via webhooks)
 notification_preferences # Per-user email/push/digest toggles
 ```
 
-Schema defined in `supabase/migrations/20260330_001_core_schema.sql`. All tables have RLS policies enforcing `auth.uid() = user_id`. Seed tables (compliance_domains, concierge_stages, concierge_tasks) allow public SELECT.
+Schema defined in Supabase migrations:
+- `20260330_001_core_schema.sql` — 13 tables, RLS policies, indexes, seed data (6 domains, 3 stages)
+- `20260331_002_extend_business_profiles.sql` — 16 additional columns for company/account details
+- `20260331_003_seed_concierge_tasks.sql` — 18 concierge tasks across 3 stages with applies_to filtering
+
+All tables have RLS policies enforcing `auth.uid() = user_id`. Seed tables (compliance_domains, concierge_stages, concierge_tasks) allow public SELECT.
 
 ## Deployment Pipeline
 
