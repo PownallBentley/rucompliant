@@ -82,6 +82,13 @@ Settings components in `src/components/settings/`:
 | `SettingsToggle` | Toggle switch with label + description |
 | `AvatarUpload` | Drag-drop image upload with zoom/reposition |
 
+Calendar components in `src/components/calendar/`:
+
+| Component | Use case |
+|-----------|----------|
+| `CalendarHeader` | Month/year navigation, today button, list/month view toggle |
+| `MonthGrid` | Month grid view with coloured urgency dots per day |
+
 ### Adding New shadcn Components
 
 ```bash
