@@ -33,6 +33,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - 9 placeholder pages: Landing, Auth, AuthCallback, Onboarding, Dashboard, Concierge, Calendar, Documents, Settings
 - Full route structure: public routes via PublicLayout, protected routes via AppLayout
 - Floating "Ask Advisor" button placeholder in AppLayout
+- Compliance Calendar page with list/month views, task urgency colouring, and mark-as-done (F-015)
+- CalendarHeader with month navigation, today button, and view toggle
+- MonthGrid with coloured urgency dots per day
+- Calendar service and store for fetching/completing tasks
 - Concierge Journey page with stage selector, progress bar, and task checklist (F-014)
 - StageSelector component with completion indicators and progress counts
 - StageProgress component with percentage bar and stage complete celebration
