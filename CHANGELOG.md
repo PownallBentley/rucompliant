@@ -33,6 +33,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - 9 placeholder pages: Landing, Auth, AuthCallback, Onboarding, Dashboard, Concierge, Calendar, Documents, Settings
 - Full route structure: public routes via PublicLayout, protected routes via AppLayout
 - Floating "Ask Advisor" button placeholder in AppLayout
+- Concierge Journey page with stage selector, progress bar, and task checklist (F-014)
+- StageSelector component with completion indicators and progress counts
+- StageProgress component with percentage bar and stage complete celebration
+- External link tasks open in new tab, internal tasks navigate in-app
 - Concierge service and store — fetch stages, tasks (filtered by business profile), mark done, track progress (F-013)
 - 18 concierge tasks seeded across 3 stages with applies_to filtering (Migration 003)
 - Dashboard page with Health Score hero, Domain Breakdown (6 cards, red-first sorting), and Next 3 Actions (F-012)

@@ -70,6 +70,7 @@ src/
 │   ├── layout/     # AppLayout, Sidebar, PublicLayout, MobileNav
 │   ├── auth/       # ProtectedRoute, AuthProvider, MagicLinkSent
 │   ├── dashboard/  # DomainBreakdown, NextActions
+│   ├── concierge/  # StageSelector, StageProgress
 │   ├── settings/   # SettingsCard, SettingsField, SettingsToggle, AvatarUpload
 │   ├── landing/    # LandingNav, HeroHealthCard, EmailSignup, PricingCard, etc.
 │   └── shared/     # Reusable feature components (RagStatus, TaskList, QuestionFlow)
