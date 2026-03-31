@@ -31,8 +31,8 @@ export default function AuthPage() {
       } else {
         await signUp(email, password);
       }
-      // AuthProvider will detect the session change and update the store
-      // ProtectedRoute / AuthCallbackPage will handle redirect
+      // Let AuthProvider detect session change, then route based on onboarding status
+      // Small delay to let onAuthStateChange fire and check onboarding
       navigate("/app/dashboard", { replace: true });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");

@@ -55,21 +55,25 @@ export async function saveBusinessProfile(userId: string, answers: OnboardingAns
     onboarding_completed: true,
   }
 
-  // Try insert first, update if already exists
+  console.log('[onboarding] Saving profile:', JSON.stringify(profileData))
+
   const { error: insertError } = await supabase
     .from('business_profiles')
     .insert(profileData)
 
   if (insertError) {
+    console.error('[onboarding] Insert error:', insertError.code, insertError.message, insertError.details)
     if (insertError.code === '23505') {
-      // Unique violation — profile exists, update instead
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { user_id: _uid, ...updateData } = profileData
       const { error: updateError } = await supabase
         .from('business_profiles')
         .update(updateData)
         .eq('user_id', userId)
-      if (updateError) throw updateError
+      if (updateError) {
+        console.error('[onboarding] Update error:', updateError.code, updateError.message)
+        throw updateError
+      }
     } else {
       throw insertError
     }

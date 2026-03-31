@@ -7,19 +7,19 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
   const { setUser, setSession, setLoading, setOnboardingCompleted } = useAuthStore()
 
   useEffect(() => {
-    // Skip auth initialisation if Supabase isn't configured (e.g. CI, preview)
     if (!isSupabaseConfigured) {
       setLoading(false)
       return
     }
 
-    // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    // Get initial session — wait for onboarding check before setting loading false
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
       setSession(session)
       setUser(session?.user ?? null)
 
       if (session?.user) {
-        checkOnboardingCompleted(session.user.id).then(setOnboardingCompleted)
+        const completed = await checkOnboardingCompleted(session.user.id)
+        setOnboardingCompleted(completed)
       }
 
       setLoading(false)
@@ -39,8 +39,6 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
         } else {
           setOnboardingCompleted(false)
         }
-
-        setLoading(false)
       }
     )
 
