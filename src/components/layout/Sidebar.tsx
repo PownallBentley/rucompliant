@@ -2,6 +2,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { AppIcon } from '@/components/ui'
 import type { IconKey } from '@/components/ui/AppIcon'
 import { useAuthStore } from '@/stores/authStore'
+import { useProfileStore } from '@/stores/profileStore'
 import { signOut } from '@/services/authService'
 
 interface NavItem {
@@ -21,6 +22,7 @@ const navItems: NavItem[] = [
 export default function Sidebar() {
   const navigate = useNavigate()
   const user = useAuthStore((s) => s.user)
+  const { avatarUrl, firstName, lastName } = useProfileStore()
 
   const handleSignOut = async () => {
     await signOut()
@@ -69,11 +71,15 @@ export default function Sidebar() {
 
         {/* User + Sign out */}
         <div className="flex items-center gap-3 px-3 py-2.5">
-          <div className="w-8 h-8 rounded-full bg-magenta/20 flex items-center justify-center shrink-0">
-            <span className="text-xs font-bold text-primary uppercase">
-              {user?.email?.charAt(0) || '?'}
-            </span>
-          </div>
+          <NavLink to="/app/settings" className="w-8 h-8 rounded-full bg-magenta/20 flex items-center justify-center shrink-0 hover:ring-2 hover:ring-primary transition-all overflow-hidden">
+            {avatarUrl ? (
+              <img src={avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
+            ) : (
+              <span className="text-xs font-bold text-primary uppercase">
+                {firstName ? `${firstName.charAt(0)}${lastName?.charAt(0) || ''}` : user?.email?.charAt(0) || '?'}
+              </span>
+            )}
+          </NavLink>
           <div className="flex-1 min-w-0">
             <p className="text-xs font-medium text-white/80 truncate">
               {user?.email || 'Account'}
