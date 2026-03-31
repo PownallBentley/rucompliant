@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { useAuthStore } from "@/stores/authStore";
+import { useProfileStore } from "@/stores/profileStore";
 import { fetchProfile, updateProfile, uploadAvatar } from "@/services/accountService";
 import { LoadingSpinner } from "@/components/ui";
 import AppIcon from "@/components/ui/AppIcon";
@@ -17,6 +18,7 @@ const BUSINESS_TYPE_LABELS: Record<string, string> = {
 
 export default function SettingsPage() {
   const user = useAuthStore((s) => s.user);
+  const { setAvatarUrl, setName } = useProfileStore();
   const [profile, setProfile] = useState<BusinessProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -26,9 +28,13 @@ export default function SettingsPage() {
     if (!user) return;
     fetchProfile(user.id).then((p) => {
       setProfile(p);
+      if (p) {
+        setAvatarUrl(p.avatar_url);
+        setName(p.first_name, p.last_name);
+      }
       setLoading(false);
     });
-  }, [user]);
+  }, [user, setAvatarUrl, setName]);
 
   const handleUpdate = useCallback(
     (field: string, value: string | boolean | number | null) => {
@@ -46,6 +52,7 @@ export default function SettingsPage() {
       const { id, user_id, created_at, updated_at, ...updates } = profile;
       void id; void user_id; void created_at; void updated_at;
       await updateProfile(user.id, updates as Partial<BusinessProfile>);
+      setName(profile.first_name, profile.last_name);
       setSaved(true);
       setTimeout(() => setSaved(false), 3000);
     } catch (err) {
@@ -59,6 +66,7 @@ export default function SettingsPage() {
     if (!user) return;
     const url = await uploadAvatar(user.id, file);
     setProfile((prev) => prev ? { ...prev, avatar_url: url } as BusinessProfile : prev);
+    setAvatarUrl(url);
   };
 
   if (loading) {

@@ -73,6 +73,15 @@ Reusable components in `src/components/shared/` used across multiple modules:
 | `TaskList` / `TaskItem` | Task list with 3 variants (checklist/timeline/compact) — Dashboard, Concierge, Calendar |
 | `QuestionFlow` / `QuestionStep` | Multi-step question flow with 5 step types — Onboarding, contract generator |
 
+Settings components in `src/components/settings/`:
+
+| Component | Use case |
+|-----------|----------|
+| `SettingsCard` | Card wrapper with title + description for settings sections |
+| `SettingsField` | Labelled input field with consistent styling |
+| `SettingsToggle` | Toggle switch with label + description |
+| `AvatarUpload` | Drag-drop image upload with zoom/reposition |
+
 ### Adding New shadcn Components
 
 ```bash

@@ -22,7 +22,7 @@ export async function updateProfile(userId: string, updates: Partial<BusinessPro
 
 export async function uploadAvatar(userId: string, file: File): Promise<string> {
   const ext = file.name.split('.').pop()
-  const path = `avatars/${userId}.${ext}`
+  const path = `${userId}.${ext}`
 
   const { error: uploadError } = await supabase.storage
     .from('avatars')
