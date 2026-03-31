@@ -33,6 +33,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - 9 placeholder pages: Landing, Auth, AuthCallback, Onboarding, Dashboard, Concierge, Calendar, Documents, Settings
 - Full route structure: public routes via PublicLayout, protected routes via AppLayout
 - Floating "Ask Advisor" button placeholder in AppLayout
+- Account Settings page with modular card layout (F-025): Personal Details, Company Info, VAT, Address, Directors
+- Avatar upload with zoom/reposition and drag-drop support
+- Reusable settings components: SettingsCard, SettingsField, SettingsToggle, AvatarUpload
+- Extended business_profiles schema with 16 new columns (Migration 002)
+- Sidebar: avatar initial links to settings, sign-out button
 - 5-question onboarding flow using QuestionFlow component (F-009)
 - Onboarding service: saves business profile, creates initial health score (Amber), creates domain scores, seeds calendar
 - Calendar seed service: auto-populates statutory deadlines based on business profile (F-010)

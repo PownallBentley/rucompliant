@@ -75,40 +75,88 @@ export type Database = {
       }
       business_profiles: {
         Row: {
+          address_line_1: string | null
+          address_line_2: string | null
+          avatar_url: string | null
           business_type: Database["public"]["Enums"]["business_type"]
+          city: string | null
+          company_name: string | null
+          company_number: string | null
+          country: string | null
           created_at: string
+          date_incorporated: string | null
+          directors: Json | null
+          first_name: string | null
           headcount: number
           id: string
+          job_title: string | null
+          last_name: string | null
           onboarding_completed: boolean
+          phone: string | null
+          postcode: string | null
           sector: string | null
           trading_start_date: string | null
           updated_at: string
           user_id: string
+          vat_number: string | null
           vat_registered: boolean | null
+          website: string | null
         }
         Insert: {
+          address_line_1?: string | null
+          address_line_2?: string | null
+          avatar_url?: string | null
           business_type: Database["public"]["Enums"]["business_type"]
+          city?: string | null
+          company_name?: string | null
+          company_number?: string | null
+          country?: string | null
           created_at?: string
+          date_incorporated?: string | null
+          directors?: Json | null
+          first_name?: string | null
           headcount?: number
           id?: string
+          job_title?: string | null
+          last_name?: string | null
           onboarding_completed?: boolean
+          phone?: string | null
+          postcode?: string | null
           sector?: string | null
           trading_start_date?: string | null
           updated_at?: string
           user_id: string
+          vat_number?: string | null
           vat_registered?: boolean | null
+          website?: string | null
         }
         Update: {
+          address_line_1?: string | null
+          address_line_2?: string | null
+          avatar_url?: string | null
           business_type?: Database["public"]["Enums"]["business_type"]
+          city?: string | null
+          company_name?: string | null
+          company_number?: string | null
+          country?: string | null
           created_at?: string
+          date_incorporated?: string | null
+          directors?: Json | null
+          first_name?: string | null
           headcount?: number
           id?: string
+          job_title?: string | null
+          last_name?: string | null
           onboarding_completed?: boolean
+          phone?: string | null
+          postcode?: string | null
           sector?: string | null
           trading_start_date?: string | null
           updated_at?: string
           user_id?: string
+          vat_number?: string | null
           vat_registered?: boolean | null
+          website?: string | null
         }
         Relationships: []
       }
@@ -640,3 +688,42 @@ export type CompositeTypes<
   : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
     ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never
+
+export const Constants = {
+  public: {
+    Enums: {
+      action_type: [
+        "external_link",
+        "internal_workflow",
+        "mark_done",
+        "upload_document",
+      ],
+      business_type: ["sole_trader", "limited_company", "partnership"],
+      document_category: [
+        "formation",
+        "contracts",
+        "policies",
+        "insurance",
+        "tax_accounts",
+        "health_safety",
+        "training",
+      ],
+      health_status: ["green", "amber", "red"],
+      message_role: ["user", "assistant"],
+      plan_type: ["monthly", "annual"],
+      subscription_status: [
+        "trialing",
+        "active",
+        "past_due",
+        "canceled",
+        "unpaid",
+      ],
+      task_type: [
+        "statutory_deadline",
+        "compliance_action",
+        "trigger_event",
+        "review_renewal",
+      ],
+    },
+  },
+} as const

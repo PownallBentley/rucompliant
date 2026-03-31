@@ -69,11 +69,11 @@ export default function Sidebar() {
 
         {/* User + Sign out */}
         <div className="flex items-center gap-3 px-3 py-2.5">
-          <div className="w-8 h-8 rounded-full bg-magenta/20 flex items-center justify-center shrink-0">
+          <NavLink to="/app/settings" className="w-8 h-8 rounded-full bg-magenta/20 flex items-center justify-center shrink-0 hover:ring-2 hover:ring-primary transition-all">
             <span className="text-xs font-bold text-primary uppercase">
               {user?.email?.charAt(0) || '?'}
             </span>
-          </div>
+          </NavLink>
           <div className="flex-1 min-w-0">
             <p className="text-xs font-medium text-white/80 truncate">
               {user?.email || 'Account'}
