@@ -26,14 +26,13 @@ export async function getSession() {
 }
 
 export async function checkOnboardingCompleted(userId: string): Promise<boolean> {
-  const { data, error } = await supabase
+  const { data } = await supabase
     .from('business_profiles')
     .select('onboarding_completed')
     .eq('user_id', userId)
-    .single()
+    .maybeSingle()
 
-  if (error || !data) return false
-  return data.onboarding_completed
+  return data?.onboarding_completed ?? false
 }
 
 export function onAuthStateChange(callback: (event: string, session: unknown) => void) {

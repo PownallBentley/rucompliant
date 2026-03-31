@@ -38,40 +38,65 @@ function mapVatRegistered(answer: string): boolean | null {
 }
 
 export async function saveBusinessProfile(userId: string, answers: OnboardingAnswers) {
-  const tradingDate = answers.trading_start_date && answers.trading_start_date !== 'not_started'
-    ? answers.trading_start_date
-    : null
+  let tradingDate: string | null = null
+  if (answers.trading_start_date && answers.trading_start_date !== 'not_started') {
+    // Ensure full date format (YYYY-MM-DD) — QuestionFlow may return YYYY-MM
+    const raw = answers.trading_start_date
+    tradingDate = raw.length <= 7 ? `${raw}-01` : raw
+  }
 
-  const { error } = await supabase
+  const profileData = {
+    user_id: userId,
+    business_type: mapBusinessType(answers.business_structure),
+    headcount: mapHeadcount(answers.headcount),
+    vat_registered: mapVatRegistered(answers.vat_registered),
+    sector: answers.sector || null,
+    trading_start_date: tradingDate,
+    onboarding_completed: true,
+  }
+
+  // Try insert first, update if already exists
+  const { error: insertError } = await supabase
     .from('business_profiles')
-    .upsert({
-      user_id: userId,
-      business_type: mapBusinessType(answers.business_structure),
-      headcount: mapHeadcount(answers.headcount),
-      vat_registered: mapVatRegistered(answers.vat_registered),
-      sector: answers.sector || null,
-      trading_start_date: tradingDate,
-      onboarding_completed: true,
-    }, { onConflict: 'user_id' })
+    .insert(profileData)
 
-  if (error) throw error
+  if (insertError) {
+    if (insertError.code === '23505') {
+      // Unique violation — profile exists, update instead
+      const { user_id: _, ...updateData } = profileData
+      const { error: updateError } = await supabase
+        .from('business_profiles')
+        .update(updateData)
+        .eq('user_id', userId)
+      if (updateError) throw updateError
+    } else {
+      throw insertError
+    }
+  }
 }
 
 export async function createInitialHealthScore(userId: string) {
-  // Initial score is always Amber — user needs to complete Concierge Journey for Green
-  const { error } = await supabase
+  const { error: insertError } = await supabase
     .from('health_scores')
-    .upsert({
+    .insert({
       user_id: userId,
       overall_status: 'amber' as const,
       previous_status: null,
-    }, { onConflict: 'user_id' })
+    })
 
-  if (error) throw error
+  if (insertError && insertError.code === '23505') {
+    // Already exists — update
+    const { error: updateError } = await supabase
+      .from('health_scores')
+      .update({ overall_status: 'amber' as const })
+      .eq('user_id', userId)
+    if (updateError) throw updateError
+  } else if (insertError) {
+    throw insertError
+  }
 }
 
 export async function createInitialDomainScores(userId: string, headcount: number) {
-  // Fetch all domains
   const { data: domains, error: fetchError } = await supabase
     .from('compliance_domains')
     .select('id, name')
@@ -82,20 +107,30 @@ export async function createInitialDomainScores(userId: string, headcount: numbe
   // Domains that only apply when business has employees
   const employeeRequired = ['Health & Safety', 'Employment & People', 'Insurance']
 
-  const scores = domains.map(domain => ({
-    user_id: userId,
-    domain_id: domain.id,
-    status: 'amber' as const, // Everything starts as Amber
-    ...(employeeRequired.includes(domain.name) && headcount <= 1
-      ? { status: 'green' as const } // No employees = these domains are Green
-      : {}),
-  }))
+  for (const domain of domains) {
+    const status = (employeeRequired.includes(domain.name) && headcount <= 1)
+      ? 'green' as const
+      : 'amber' as const
 
-  const { error } = await supabase
-    .from('compliance_domain_scores')
-    .upsert(scores, { onConflict: 'user_id,domain_id' })
+    const { error: insertError } = await supabase
+      .from('compliance_domain_scores')
+      .insert({
+        user_id: userId,
+        domain_id: domain.id,
+        status,
+      })
 
-  if (error) throw error
+    if (insertError && insertError.code === '23505') {
+      // Already exists — update
+      await supabase
+        .from('compliance_domain_scores')
+        .update({ status })
+        .eq('user_id', userId)
+        .eq('domain_id', domain.id)
+    } else if (insertError) {
+      throw insertError
+    }
+  }
 }
 
 export async function completeOnboarding(userId: string, answers: Record<string, string>) {
