@@ -33,6 +33,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - 9 placeholder pages: Landing, Auth, AuthCallback, Onboarding, Dashboard, Concierge, Calendar, Documents, Settings
 - Full route structure: public routes via PublicLayout, protected routes via AppLayout
 - Floating "Ask Advisor" button placeholder in AppLayout
+- Health Score service and store — fetches overall status, domain scores, next actions from Supabase (F-011)
+- calculateOverallStatus: worst single domain determines overall score (PRD rule)
 - Account Settings page with modular card layout (F-025): Personal Details, Company Info, VAT, Address, Directors
 - Avatar upload with zoom/reposition and drag-drop support
 - Reusable settings components: SettingsCard, SettingsField, SettingsToggle, AvatarUpload
